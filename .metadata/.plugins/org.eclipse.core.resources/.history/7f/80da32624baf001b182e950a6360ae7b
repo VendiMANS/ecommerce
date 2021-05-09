@@ -1,0 +1,130 @@
+package com.springboot.app.products.model;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class ProductTest {
+
+	@Test
+	void testGetId() {
+		Product fullProd = new Product("A", 1.0, 2, false);
+		
+		assertEquals(null, fullProd.getId());
+	}
+
+	@Test
+	void testSetId() {
+		Product emptyProd = new Product();
+		
+		assertEquals(null, emptyProd.getId());
+		
+		emptyProd.setId(1L);
+		
+		assertEquals(1L, emptyProd.getId());
+	}
+
+	@Test
+	void testGetName() {
+		Product fullProd = new Product("A", 1.0, 2, false);
+		
+		assertEquals("A", fullProd.getName());
+	}
+
+	@Test
+	void testSetName() {
+		Product emptyProd = new Product();
+		
+		assertEquals(null, emptyProd.getName());
+		
+		emptyProd.setName("BBB");
+		
+		assertEquals("BBB", emptyProd.getName());
+	}
+
+	@Test
+	void testGetPrice() {
+		Product fullProd = new Product("A", 1.0, 2, false);
+		
+		assertEquals(1.0, fullProd.getPrice());
+	}
+
+	@Test
+	void testSetPrice() {
+		Product emptyProd = new Product();
+		
+		assertEquals(null, emptyProd.getPrice());
+		
+		emptyProd.setPrice(66.0);
+		
+		assertEquals(66.0, emptyProd.getPrice());
+	}
+
+	@Test
+	void testGetStock() {
+		Product fullProd = new Product("A", 1.0, 2, false);
+		
+		assertEquals(2, fullProd.getStock());
+	}
+
+	@Test
+	void testSetStock() {
+		Product emptyProd = new Product();
+		
+		assertEquals(null, emptyProd.getStock());
+		
+		emptyProd.setStock(5);
+		
+		assertEquals(5, emptyProd.getStock());
+	}
+
+	@Test
+	void testGetOnSale() {
+		Product fullProd = new Product("A", 1.0, 2, false);
+		
+		assertEquals(false, fullProd.getOnSale());
+	}
+
+	@Test
+	void testSetOnSale() {
+		Product emptyProd = new Product();
+		
+		assertEquals(null, emptyProd.getOnSale());
+		
+		emptyProd.setOnSale(true);
+		
+		assertEquals(true, emptyProd.getOnSale());
+	}
+
+	@Test
+	void testHasEnoughStockToSell() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testEqualsObject() {
+		Product emptyProd = new Product();
+		Product fullProd = new Product("A", 1.0, 2, false);
+		fullProd.setId(1L);
+
+        assertEquals(emptyProd,emptyProd);
+        assertNotEquals(emptyProd,null);
+		assertNotEquals(emptyProd,fullProd);
+        
+        //assertNotEquals(emptyProd,27);
+	}
+
+	@Test
+	void testHashCode() {
+		Product testObj1 = new Product();
+		Product testObj2 = new Product();
+		
+        assertEquals(testObj1.hashCode(),testObj2.hashCode());
+	}
+	
+	@Test
+	void testToString() {
+		fail("Not yet implemented");
+	}
+
+}
