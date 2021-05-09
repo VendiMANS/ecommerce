@@ -355,8 +355,8 @@ class ProductControllerTest {
 	@Test
 	void testSellStockNull() {
 		when(service.sellStock(1, 1l)).thenReturn(null);
-		ResponseEntity<Object> resp = new ResponseEntity<>("Not enough stock or invalid id.", HttpStatus.BAD_REQUEST);
-		assertEquals(resp, control.sellStock(1, 1L));
+		
+		assertEquals(errorNoProdFoundByIdResp, control.sellStock(1, 1L));
 	}
 	
 	@Test
@@ -368,20 +368,22 @@ class ProductControllerTest {
 
 	@Test
 	void testDeleteAll() {
-		ResponseEntity<Object> resp = new ResponseEntity<>("All products have been deleted.", HttpStatus.OK);
+		ResponseEntity<Object> resp = new ResponseEntity<>("All products have been deleted", HttpStatus.OK);
 		assertEquals(resp, control.deleteAll());
 	}
 
 	@Test
 	void testDeleteByIdNull() {
-		assertEquals(errorNoProdFoundByIdResp, control.deleteById(1L));
+		Long id = 1L;
+		ResponseEntity<Object> resp = new ResponseEntity<>("Product of id " + id + " has been deleted", HttpStatus.OK);
+		assertEquals(resp, control.deleteById(1L));
 	}
 	
 	@Test
 	void testDeleteByIdOk() {
 		Long id = 1L;
 		when(service.findById(id)).thenReturn(Optional.of(fullProd1));
-		ResponseEntity<Object> resp = new ResponseEntity<>("Product of id " + id + " has been deleted.", HttpStatus.OK);
+		ResponseEntity<Object> resp = new ResponseEntity<>("Product of id " + id + " has been deleted", HttpStatus.OK);
 		assertEquals(resp, control.deleteById(1L));
 	}
 

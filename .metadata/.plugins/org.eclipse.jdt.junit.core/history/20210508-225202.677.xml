@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="springboot-service-products" project="springboot-service-products" tests="78" started="78" failures="3" errors="0" ignored="0">
+  <testsuite name="com.springboot.app.products.SpringbootServiceProductsApplicationTests" time="0.002" displayname="SpringbootServiceProductsApplicationTests" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.SpringbootServiceProductsApplicationTests]">
+    <testcase name="contextLoads" classname="com.springboot.app.products.SpringbootServiceProductsApplicationTests" time="0.002" displayname="contextLoads()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.SpringbootServiceProductsApplicationTests]/[method:contextLoads()]"/>
+  </testsuite>
+  <testsuite name="com.springboot.app.products.model.ProductTest" time="0.073" displayname="ProductTest" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.model.ProductTest]">
+    <testcase name="testGetPrice" classname="com.springboot.app.products.model.ProductTest" time="0.0" displayname="testGetPrice()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.model.ProductTest]/[method:testGetPrice()]"/>
+    <testcase name="testGetStock" classname="com.springboot.app.products.model.ProductTest" time="0.001" displayname="testGetStock()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.model.ProductTest]/[method:testGetStock()]"/>
+    <testcase name="testGetId" classname="com.springboot.app.products.model.ProductTest" time="0.002" displayname="testGetId()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.model.ProductTest]/[method:testGetId()]"/>
+    <testcase name="testSetId" classname="com.springboot.app.products.model.ProductTest" time="0.001" displayname="testSetId()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.model.ProductTest]/[method:testSetId()]"/>
+    <testcase name="testToString" classname="com.springboot.app.products.model.ProductTest" time="0.004" displayname="testToString()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.model.ProductTest]/[method:testToString()]"/>
+    <testcase name="testGetName" classname="com.springboot.app.products.model.ProductTest" time="0.002" displayname="testGetName()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.model.ProductTest]/[method:testGetName()]"/>
+    <testcase name="testEqualsObject" classname="com.springboot.app.products.model.ProductTest" time="0.005" displayname="testEqualsObject()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.model.ProductTest]/[method:testEqualsObject()]"/>
+    <testcase name="testHasEnoughStockToSell" classname="com.springboot.app.products.model.ProductTest" time="0.004" displayname="testHasEnoughStockToSell()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.model.ProductTest]/[method:testHasEnoughStockToSell()]"/>
+    <testcase name="testHashCode" classname="com.springboot.app.products.model.ProductTest" time="0.002" displayname="testHashCode()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.model.ProductTest]/[method:testHashCode()]"/>
+    <testcase name="testSetOnSale" classname="com.springboot.app.products.model.ProductTest" time="0.001" displayname="testSetOnSale()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.model.ProductTest]/[method:testSetOnSale()]"/>
+    <testcase name="testGetOnSale" classname="com.springboot.app.products.model.ProductTest" time="0.002" displayname="testGetOnSale()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.model.ProductTest]/[method:testGetOnSale()]"/>
+    <testcase name="testSetName" classname="com.springboot.app.products.model.ProductTest" time="0.001" displayname="testSetName()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.model.ProductTest]/[method:testSetName()]"/>
+    <testcase name="testSetPrice" classname="com.springboot.app.products.model.ProductTest" time="0.001" displayname="testSetPrice()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.model.ProductTest]/[method:testSetPrice()]"/>
+    <testcase name="testSetStock" classname="com.springboot.app.products.model.ProductTest" time="0.046" displayname="testSetStock()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.model.ProductTest]/[method:testSetStock()]"/>
+  </testsuite>
+  <testsuite name="com.springboot.app.products.service.ProductServiceTest" time="1.532" displayname="ProductServiceTest" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]">
+    <testcase name="testAddStockNull" classname="com.springboot.app.products.service.ProductServiceTest" time="1.431" displayname="testAddStockNull()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testAddStockNull()]"/>
+    <testcase name="testSellStockNotEnoughStock" classname="com.springboot.app.products.service.ProductServiceTest" time="0.002" displayname="testSellStockNotEnoughStock()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testSellStockNotEnoughStock()]"/>
+    <testcase name="testEditNull" classname="com.springboot.app.products.service.ProductServiceTest" time="0.002" displayname="testEditNull()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testEditNull()]"/>
+    <testcase name="testFindOffersEmpty" classname="com.springboot.app.products.service.ProductServiceTest" time="0.003" displayname="testFindOffersEmpty()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testFindOffersEmpty()]"/>
+    <testcase name="testAddStockMapOk" classname="com.springboot.app.products.service.ProductServiceTest" time="0.005" displayname="testAddStockMapOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testAddStockMapOk()]"/>
+    <testcase name="testEditPriceMapEmpty" classname="com.springboot.app.products.service.ProductServiceTest" time="0.003" displayname="testEditPriceMapEmpty()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testEditPriceMapEmpty()]"/>
+    <testcase name="testRemoveOnSaleOk" classname="com.springboot.app.products.service.ProductServiceTest" time="0.004" displayname="testRemoveOnSaleOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testRemoveOnSaleOk()]"/>
+    <testcase name="testFindAllEmpty" classname="com.springboot.app.products.service.ProductServiceTest" time="0.004" displayname="testFindAllEmpty()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testFindAllEmpty()]"/>
+    <testcase name="testEditPriceMapOk" classname="com.springboot.app.products.service.ProductServiceTest" time="0.004" displayname="testEditPriceMapOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testEditPriceMapOk()]"/>
+    <testcase name="testSave" classname="com.springboot.app.products.service.ProductServiceTest" time="0.003" displayname="testSave()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testSave()]"/>
+    <testcase name="testFindByName" classname="com.springboot.app.products.service.ProductServiceTest" time="0.004" displayname="testFindByName()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testFindByName()]"/>
+    <testcase name="testSellStockMapEmpty" classname="com.springboot.app.products.service.ProductServiceTest" time="0.002" displayname="testSellStockMapEmpty()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testSellStockMapEmpty()]"/>
+    <testcase name="testAddStockOk" classname="com.springboot.app.products.service.ProductServiceTest" time="0.004" displayname="testAddStockOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testAddStockOk()]"/>
+    <testcase name="testSellStockMapOk" classname="com.springboot.app.products.service.ProductServiceTest" time="0.007" displayname="testSellStockMapOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testSellStockMapOk()]"/>
+    <testcase name="testFindById" classname="com.springboot.app.products.service.ProductServiceTest" time="0.002" displayname="testFindById()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testFindById()]"/>
+    <testcase name="testDeleteAll" classname="com.springboot.app.products.service.ProductServiceTest" time="0.003" displayname="testDeleteAll()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testDeleteAll()]"/>
+    <testcase name="testRemoveOnSaleList" classname="com.springboot.app.products.service.ProductServiceTest" time="0.004" displayname="testRemoveOnSaleList()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testRemoveOnSaleList()]"/>
+    <testcase name="testRemoveOnSaleNull" classname="com.springboot.app.products.service.ProductServiceTest" time="0.002" displayname="testRemoveOnSaleNull()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testRemoveOnSaleNull()]"/>
+    <testcase name="testFindOffersOk" classname="com.springboot.app.products.service.ProductServiceTest" time="0.003" displayname="testFindOffersOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testFindOffersOk()]"/>
+    <testcase name="testPutOnSaleOk" classname="com.springboot.app.products.service.ProductServiceTest" time="0.003" displayname="testPutOnSaleOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testPutOnSaleOk()]"/>
+    <testcase name="testEditPriceOk" classname="com.springboot.app.products.service.ProductServiceTest" time="0.003" displayname="testEditPriceOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testEditPriceOk()]"/>
+    <testcase name="testDeleteById" classname="com.springboot.app.products.service.ProductServiceTest" time="0.004" displayname="testDeleteById()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testDeleteById()]"/>
+    <testcase name="testFindAllOk" classname="com.springboot.app.products.service.ProductServiceTest" time="0.002" displayname="testFindAllOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testFindAllOk()]"/>
+    <testcase name="testSellStockNull" classname="com.springboot.app.products.service.ProductServiceTest" time="0.003" displayname="testSellStockNull()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testSellStockNull()]"/>
+    <testcase name="testEditPriceNull" classname="com.springboot.app.products.service.ProductServiceTest" time="0.002" displayname="testEditPriceNull()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testEditPriceNull()]"/>
+    <testcase name="testEditOk" classname="com.springboot.app.products.service.ProductServiceTest" time="0.003" displayname="testEditOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testEditOk()]"/>
+    <testcase name="testPutOnSaleList" classname="com.springboot.app.products.service.ProductServiceTest" time="0.004" displayname="testPutOnSaleList()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testPutOnSaleList()]"/>
+    <testcase name="testPutOnSaleNull" classname="com.springboot.app.products.service.ProductServiceTest" time="0.002" displayname="testPutOnSaleNull()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testPutOnSaleNull()]"/>
+    <testcase name="testSaveAll" classname="com.springboot.app.products.service.ProductServiceTest" time="0.003" displayname="testSaveAll()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testSaveAll()]"/>
+    <testcase name="testAddStockMapEmpty" classname="com.springboot.app.products.service.ProductServiceTest" time="0.003" displayname="testAddStockMapEmpty()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testAddStockMapEmpty()]"/>
+    <testcase name="testSellStockOk" classname="com.springboot.app.products.service.ProductServiceTest" time="0.008" displayname="testSellStockOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.service.ProductServiceTest]/[method:testSellStockOk()]"/>
+  </testsuite>
+  <testsuite name="com.springboot.app.products.controller.ProductControllerTest" time="0.268" displayname="ProductControllerTest" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]">
+    <testcase name="testAddStockNull" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.176" displayname="testAddStockNull()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testAddStockNull()]"/>
+    <testcase name="testPutOnSaleListOk" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.005" displayname="testPutOnSaleListOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testPutOnSaleListOk()]"/>
+    <testcase name="testEditNull" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.002" displayname="testEditNull()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testEditNull()]"/>
+    <testcase name="testFindByIdNull" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.002" displayname="testFindByIdNull()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testFindByIdNull()]"/>
+    <testcase name="testFindOffersEmpty" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.003" displayname="testFindOffersEmpty()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testFindOffersEmpty()]"/>
+    <testcase name="testFindByNameOk" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.003" displayname="testFindByNameOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testFindByNameOk()]"/>
+    <testcase name="testSaveAllEmpty" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.004" displayname="testSaveAllEmpty()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testSaveAllEmpty()]"/>
+    <testcase name="testEditPriceMapEmpty" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.003" displayname="testEditPriceMapEmpty()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testEditPriceMapEmpty()]"/>
+    <testcase name="testSaveNull" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.003" displayname="testSaveNull()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testSaveNull()]"/>
+    <testcase name="testRemoveOnSaleOk" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.003" displayname="testRemoveOnSaleOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testRemoveOnSaleOk()]"/>
+    <testcase name="testFindAllEmpty" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.002" displayname="testFindAllEmpty()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testFindAllEmpty()]"/>
+    <testcase name="testEditPriceMapOk" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.003" displayname="testEditPriceMapOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testEditPriceMapOk()]"/>
+    <testcase name="testFindByIdOk" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.002" displayname="testFindByIdOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testFindByIdOk()]"/>
+    <testcase name="testAddStockOk" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.003" displayname="testAddStockOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testAddStockOk()]"/>
+    <testcase name="testPutOnSaleListEmpty" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.002" displayname="testPutOnSaleListEmpty()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testPutOnSaleListEmpty()]"/>
+    <testcase name="testDeleteAll" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.014" displayname="testDeleteAll()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testDeleteAll()]">
+      <failure>
+        <expected>&lt;200 OK OK,All products have been deleted,[]&gt;</expected>
+        <actual>&lt;200 OK OK,All products have been deleted.,[]&gt;</actual>
+        org.opentest4j.AssertionFailedError: expected: &lt;&lt;200 OK OK,All products have been deleted,[]&gt;&gt; but was: &lt;&lt;200 OK OK,All products have been deleted.,[]&gt;&gt;&#13;
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)&#13;
+	at org.junit.jupiter.api.AssertionUtils.failNotEqual(AssertionUtils.java:62)&#13;
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)&#13;
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)&#13;
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1124)&#13;
+	at com.springboot.app.products.controller.ProductControllerTest.testDeleteAll(ProductControllerTest.java:372)&#13;
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)&#13;
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:688)&#13;
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)&#13;
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)&#13;
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)&#13;
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)&#13;
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)&#13;
+	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)&#13;
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)&#13;
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)&#13;
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)&#13;
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)&#13;
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)&#13;
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)&#13;
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)&#13;
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:210)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:206)&#13;
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:131)&#13;
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:65)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:129)&#13;
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:127)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:126)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:84)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1540)&#13;
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:143)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:129)&#13;
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:127)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:126)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:84)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1540)&#13;
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:143)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:129)&#13;
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:127)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:126)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:84)&#13;
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)&#13;
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)&#13;
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)&#13;
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108)&#13;
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)&#13;
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)&#13;
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)&#13;
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)&#13;
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:96)&#13;
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:84)&#13;
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:98)&#13;
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:41)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:542)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:770)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:464)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:210)&#13;
+&#13;
+
+      </failure>
+    </testcase>
+    <testcase name="testRemoveOnSaleNull" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.002" displayname="testRemoveOnSaleNull()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testRemoveOnSaleNull()]"/>
+    <testcase name="testFindOffersOk" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.002" displayname="testFindOffersOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testFindOffersOk()]"/>
+    <testcase name="testRemoveOnSaleListOk" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.003" displayname="testRemoveOnSaleListOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testRemoveOnSaleListOk()]"/>
+    <testcase name="testPutOnSaleOk" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.002" displayname="testPutOnSaleOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testPutOnSaleOk()]"/>
+    <testcase name="testSaveAllOk" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.002" displayname="testSaveAllOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testSaveAllOk()]"/>
+    <testcase name="testEditPriceOk" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.003" displayname="testEditPriceOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testEditPriceOk()]"/>
+    <testcase name="testDeleteById" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.003" displayname="testDeleteById()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testDeleteById()]">
+      <failure>
+        <expected>&lt;200 OK OK,Product of id 1 has been deleted,[]&gt;</expected>
+        <actual>&lt;400 BAD_REQUEST Bad Request,There's no product with such id.,[]&gt;</actual>
+        org.opentest4j.AssertionFailedError: expected: &lt;&lt;200 OK OK,Product of id 1 has been deleted,[]&gt;&gt; but was: &lt;&lt;400 BAD_REQUEST Bad Request,There's no product with such id.,[]&gt;&gt;&#13;
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)&#13;
+	at org.junit.jupiter.api.AssertionUtils.failNotEqual(AssertionUtils.java:62)&#13;
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)&#13;
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)&#13;
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1124)&#13;
+	at com.springboot.app.products.controller.ProductControllerTest.testDeleteById(ProductControllerTest.java:379)&#13;
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)&#13;
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:688)&#13;
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)&#13;
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)&#13;
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)&#13;
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)&#13;
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)&#13;
+	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)&#13;
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)&#13;
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)&#13;
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)&#13;
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)&#13;
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)&#13;
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)&#13;
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)&#13;
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:210)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:206)&#13;
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:131)&#13;
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:65)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:129)&#13;
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:127)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:126)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:84)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1540)&#13;
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:143)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:129)&#13;
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:127)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:126)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:84)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1540)&#13;
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:143)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:129)&#13;
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:127)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:126)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:84)&#13;
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)&#13;
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)&#13;
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)&#13;
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108)&#13;
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)&#13;
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)&#13;
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)&#13;
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)&#13;
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:96)&#13;
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:84)&#13;
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:98)&#13;
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:41)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:542)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:770)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:464)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:210)&#13;
+&#13;
+
+      </failure>
+    </testcase>
+    <testcase name="testFindAllOk" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.002" displayname="testFindAllOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testFindAllOk()]"/>
+    <testcase name="testSellStockNull" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.004" displayname="testSellStockNull()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testSellStockNull()]">
+      <failure>
+        <expected>&lt;400 BAD_REQUEST Bad Request,There's no product with such id.,[]&gt;</expected>
+        <actual>&lt;400 BAD_REQUEST Bad Request,Not enough stock or invalid id.,[]&gt;</actual>
+        org.opentest4j.AssertionFailedError: expected: &lt;&lt;400 BAD_REQUEST Bad Request,There's no product with such id.,[]&gt;&gt; but was: &lt;&lt;400 BAD_REQUEST Bad Request,Not enough stock or invalid id.,[]&gt;&gt;&#13;
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)&#13;
+	at org.junit.jupiter.api.AssertionUtils.failNotEqual(AssertionUtils.java:62)&#13;
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)&#13;
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)&#13;
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1124)&#13;
+	at com.springboot.app.products.controller.ProductControllerTest.testSellStockNull(ProductControllerTest.java:359)&#13;
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)&#13;
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:688)&#13;
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)&#13;
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)&#13;
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)&#13;
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)&#13;
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)&#13;
+	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)&#13;
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)&#13;
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)&#13;
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)&#13;
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)&#13;
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)&#13;
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)&#13;
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)&#13;
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:210)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:206)&#13;
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:131)&#13;
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:65)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:129)&#13;
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:127)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:126)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:84)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1540)&#13;
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:143)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:129)&#13;
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:127)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:126)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:84)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1540)&#13;
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:143)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:129)&#13;
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:127)&#13;
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:126)&#13;
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:84)&#13;
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)&#13;
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)&#13;
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)&#13;
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108)&#13;
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)&#13;
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)&#13;
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)&#13;
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)&#13;
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:96)&#13;
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:84)&#13;
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:98)&#13;
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:41)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:542)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:770)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:464)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:210)&#13;
+&#13;
+
+      </failure>
+    </testcase>
+    <testcase name="testEditPriceNull" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.002" displayname="testEditPriceNull()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testEditPriceNull()]"/>
+    <testcase name="testRemoveStockOk" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.002" displayname="testRemoveStockOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testRemoveStockOk()]"/>
+    <testcase name="testEditOk" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.002" displayname="testEditOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testEditOk()]"/>
+    <testcase name="testPutOnSaleNull" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.001" displayname="testPutOnSaleNull()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testPutOnSaleNull()]"/>
+    <testcase name="testSaveOk" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.003" displayname="testSaveOk()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testSaveOk()]"/>
+    <testcase name="testRemoveOnSaleListEmpty" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.003" displayname="testRemoveOnSaleListEmpty()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testRemoveOnSaleListEmpty()]"/>
+    <testcase name="testFindByNameNull" classname="com.springboot.app.products.controller.ProductControllerTest" time="0.001" displayname="testFindByNameNull()" uniqueid="[engine:junit-jupiter]/[class:com.springboot.app.products.controller.ProductControllerTest]/[method:testFindByNameNull()]"/>
+  </testsuite>
+</testrun>

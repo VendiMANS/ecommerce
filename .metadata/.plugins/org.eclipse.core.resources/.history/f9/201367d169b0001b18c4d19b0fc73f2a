@@ -355,8 +355,8 @@ class ProductControllerTest {
 	@Test
 	void testSellStockNull() {
 		when(service.sellStock(1, 1l)).thenReturn(null);
-		ResponseEntity<Object> resp = new ResponseEntity<>("Not enough stock or invalid id.", HttpStatus.BAD_REQUEST);
-		assertEquals(resp, control.sellStock(1, 1L));
+		
+		assertEquals(errorNoProdFoundByIdResp, control.sellStock(1, 1L));
 	}
 	
 	@Test
