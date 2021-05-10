@@ -62,16 +62,22 @@ public class ProductService implements IProductService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Product> findAll() {
-		return (List<Product>) repository.findAll();
-	}
-	
-	@Override
-	@Transactional(readOnly = true)
 	public List<Product> findOffers() {
 		return ((List<Product>) repository.findAll()).stream()
 				.filter(p -> p.getOnSale())
 				.collect(Collectors.toList());
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<Product> findList(List<Long> ids){
+		return repository.findList(ids);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<Product> findAll() {
+		return (List<Product>) repository.findAll();
 	}
 	
 	

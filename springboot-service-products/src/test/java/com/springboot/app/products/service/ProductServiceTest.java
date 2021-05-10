@@ -125,22 +125,6 @@ class ProductServiceTest {
 	}
 
 	@Test
-	public void testFindAllEmpty() {
-		when(repository.findAll()).thenReturn(prodList1);
-		
-		assertEquals(prodList1, service.findAll());
-	}
-	
-	@Test
-	public void testFindAllOk() {
-		prodList1.add(fullProd1);
-		prodList1.add(fullProd2);
-		when(repository.findAll()).thenReturn(prodList1);
-		
-		assertEquals(prodList1, service.findAll());
-	}
-
-	@Test
 	public void testFindOffersEmpty() {
 		prodList1.add(fullProd1);
 		prodList1.add(fullProd2);
@@ -161,6 +145,49 @@ class ProductServiceTest {
 		when(repository.findAll()).thenReturn(prodList1);
 		
 		assertEquals(prodList2, service.findOffers());
+	}
+	
+	@Test
+	public void testFindListEmpty() {
+		
+		List<Long> ids = new ArrayList<>();
+		ids.add(1L);
+		ids.add(2L);
+		
+		when(repository.findList(ids)).thenReturn(prodList2);
+		
+		assertEquals(prodList2, service.findList(ids));
+	}
+	
+	@Test
+	public void testFindListOk() {
+		
+		List<Long> ids = new ArrayList<>();
+		ids.add(1L);
+		ids.add(2L);
+		
+		prodList1.add(fullProd1);
+		prodList1.add(fullProd2);
+		
+		when(repository.findList(ids)).thenReturn(prodList1);
+		
+		assertEquals(prodList1, service.findList(ids));
+	}
+	
+	@Test
+	public void testFindAllEmpty() {
+		when(repository.findAll()).thenReturn(prodList1);
+		
+		assertEquals(prodList1, service.findAll());
+	}
+	
+	@Test
+	public void testFindAllOk() {
+		prodList1.add(fullProd1);
+		prodList1.add(fullProd2);
+		when(repository.findAll()).thenReturn(prodList1);
+		
+		assertEquals(prodList1, service.findAll());
 	}
 
 	@Test

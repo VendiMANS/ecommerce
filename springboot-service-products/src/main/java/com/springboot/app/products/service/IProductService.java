@@ -15,6 +15,8 @@ public interface IProductService {
 
 	public Optional<Product> findById(Long id);
 	public Optional<Product> findByName(String name);
+	public List<Product> findOffers();
+	public List<Product> findList(List<Long> ids);
 	public List<Product> findAll();
 
 	public Product edit(Product product, Long id);
@@ -32,7 +34,4 @@ public interface IProductService {
     public void deleteById(Long id);
     public void deleteAll();
     
-    
-    
-	public List<Product> findOffers();
 }

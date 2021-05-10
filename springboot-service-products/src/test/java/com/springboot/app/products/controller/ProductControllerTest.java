@@ -37,19 +37,19 @@ class ProductControllerTest {
 	private ResponseEntity<Object> errorNoProdFoundInContainerResp;
 	private ResponseEntity<Object> errorEmptyList;
 	
-	private ResponseEntity<Object> prodFindResp(Product prod){
+	private ResponseEntity<Object> prodFoundResp(Product prod){
 		return new ResponseEntity<>(prod, HttpStatus.OK);
 	}
 	
-	private ResponseEntity<Object> prodFindListResp(List<Product> prods){
+	private ResponseEntity<Object> prodFoundListResp(List<Product> prods){
 		return new ResponseEntity<>(prods, HttpStatus.OK);
 	}
 	
-	private ResponseEntity<Object> prodSaveResp(Product prod){
+	private ResponseEntity<Object> prodSavedResp(Product prod){
 		return new ResponseEntity<>(prod, HttpStatus.CREATED);
 	}
 	
-	private ResponseEntity<Object> prodSaveListResp(List<Product> prods){
+	private ResponseEntity<Object> prodSavedListResp(List<Product> prods){
 		return new ResponseEntity<>(prods, HttpStatus.CREATED);
 	}
 	
@@ -57,7 +57,7 @@ class ProductControllerTest {
 	
 	
 	
-	private List<Product> emptyList;
+	//private List<Product> emptyList;
 	
 	private Product emptyProd;
 	private Product fullProd1;
@@ -65,7 +65,7 @@ class ProductControllerTest {
 	private Product offerProd;
 	
 	private List<Product> prodList1;
-	private List<Product> prodList2;
+	//private List<Product> prodList2;
 	
 	private Map<Long, Double> idAndPricesA;
 	private Map<Long, Double> idAndPricesB;
@@ -87,9 +87,9 @@ class ProductControllerTest {
 		errorNoProdFoundByNameResp = new ResponseEntity<>("There's no product with such name.", HttpStatus.BAD_REQUEST);
 		errorProdAlreadySavedResp = new ResponseEntity<>("There's already a product with such name.", HttpStatus.BAD_REQUEST);
 		errorNoProdFoundInContainerResp = new ResponseEntity<>("There's no product with any of those ids.", HttpStatus.BAD_REQUEST);
-		errorEmptyList = new ResponseEntity<>("This list is empty", HttpStatus.OK);
+		errorEmptyList = new ResponseEntity<>("This list is empty", HttpStatus.BAD_REQUEST);
 		
-		emptyList = new ArrayList<>();
+		//emptyList = new ArrayList<>();
 		
 		emptyProd = new Product();
 		
@@ -103,7 +103,7 @@ class ProductControllerTest {
 		offerProd.setId(3L);
 		
 		prodList1 = new ArrayList<>();
-		prodList2 = new ArrayList<>();
+		//prodList2 = new ArrayList<>();
 		
 		idAndPricesA = new HashMap<>();
 		idAndPricesA.put(1L, 10.0);
@@ -136,7 +136,7 @@ class ProductControllerTest {
 	void testFindByIdOk() {
 		when(service.findById(1L)).thenReturn(Optional.of(fullProd1));
 		
-		assertEquals(prodFindResp(fullProd1), control.findById(1L));
+		assertEquals(prodFoundResp(fullProd1), control.findById(1L));
 	}
 
 	@Test
@@ -150,7 +150,7 @@ class ProductControllerTest {
 	void testFindByNameOk() {
 		when(service.findByName("Product A")).thenReturn(Optional.of(fullProd1));
 		
-		assertEquals(prodFindResp(fullProd1), control.findByName("Product A"));
+		assertEquals(prodFoundResp(fullProd1), control.findByName("Product A"));
 	}
 
 	@Test
@@ -165,7 +165,24 @@ class ProductControllerTest {
 		prodList1.add(offerProd);
 		when(service.findOffers()).thenReturn(prodList1);
 		
-		assertEquals(prodFindListResp(prodList1), control.findOffers());
+		assertEquals(prodFoundListResp(prodList1), control.findOffers());
+	}
+	
+	@Test
+	void testFindListEmpty() {
+		when(service.findList(ids)).thenReturn(prodList1);
+		
+		assertEquals(errorEmptyList, control.findList(ids));
+	}
+	
+	@Test
+	void testFindListOk() {
+		prodList1.add(fullProd1);
+		prodList1.add(fullProd2);
+		
+		when(service.findList(ids)).thenReturn(prodList1);
+		
+		assertEquals(prodFoundListResp(prodList1), control.findList(ids));
 	}
 
 	@Test
@@ -183,7 +200,7 @@ class ProductControllerTest {
 		prodList1.add(offerProd);
 		when(service.findAll()).thenReturn(prodList1);
 		
-		assertEquals(prodFindListResp(prodList1), control.findAll());
+		assertEquals(prodFoundListResp(prodList1), control.findAll());
 	}
 
 	@Test
@@ -198,7 +215,7 @@ class ProductControllerTest {
 		when(service.findByName("Product A")).thenReturn(emptyProdOpt);
 		when(service.save(fullProd1)).thenReturn(fullProd1);
 		
-		assertEquals(prodSaveResp(fullProd1), control.save(fullProd1));
+		assertEquals(prodSavedResp(fullProd1), control.save(fullProd1));
 	}
 
 	@Test
@@ -216,7 +233,7 @@ class ProductControllerTest {
 		prodList1.add(offerProd);
 		when(service.saveAll(prodList1)).thenReturn(prodList1);
 		
-		assertEquals(prodSaveListResp(prodList1), control.saveAll(prodList1));
+		assertEquals(prodSavedListResp(prodList1), control.saveAll(prodList1));
 	}
 
 	@Test
@@ -230,7 +247,7 @@ class ProductControllerTest {
 	void testEditOk() {
 		when(service.edit(fullProd1, 1L)).thenReturn(fullProd1);
 		
-		assertEquals(prodSaveResp(fullProd1), control.edit(fullProd1, 1L));
+		assertEquals(prodSavedResp(fullProd1), control.edit(fullProd1, 1L));
 	}
 
 	@Test
@@ -244,7 +261,7 @@ class ProductControllerTest {
 	void testEditPriceOk() {
 		when(service.editPrice(10.0, 1L)).thenReturn(fullProd1);
 		
-		assertEquals(prodSaveResp(fullProd1), control.editPrice(10.0, 1L));
+		assertEquals(prodSavedResp(fullProd1), control.editPrice(10.0, 1L));
 	}
 
 	@Test
@@ -260,7 +277,7 @@ class ProductControllerTest {
 		prodList1.add(fullProd2);
 		when(service.editPriceMap(idAndPricesA)).thenReturn(prodList1);
 		
-		assertEquals(prodSaveListResp(prodList1), control.editPriceMap(idAndPricesA));
+		assertEquals(prodSavedListResp(prodList1), control.editPriceMap(idAndPricesA));
 	}
 
 	@Test
@@ -274,7 +291,7 @@ class ProductControllerTest {
 	void testPutOnSaleOk() {
 		when(service.putOnSale(1L)).thenReturn(fullProd1);
 		
-		assertEquals(prodSaveResp(fullProd1), control.putOnSale(1L));
+		assertEquals(prodSavedResp(fullProd1), control.putOnSale(1L));
 	}
 
 	@Test
@@ -289,7 +306,7 @@ class ProductControllerTest {
 		prodList1.add(offerProd);
 		when(service.putOnSaleList(ids)).thenReturn(prodList1);
 		
-		assertEquals(prodSaveListResp(prodList1), control.putOnSaleList(ids));
+		assertEquals(prodSavedListResp(prodList1), control.putOnSaleList(ids));
 	}
 
 	@Test
@@ -303,7 +320,7 @@ class ProductControllerTest {
 	void testRemoveOnSaleOk() {
 		when(service.removeOnSale(1L)).thenReturn(fullProd1);
 		
-		assertEquals(prodSaveResp(fullProd1), control.removeOnSale(1L));
+		assertEquals(prodSavedResp(fullProd1), control.removeOnSale(1L));
 	}
 
 	@Test
@@ -319,7 +336,7 @@ class ProductControllerTest {
 		prodList1.add(fullProd2);
 		when(service.removeOnSaleList(ids)).thenReturn(prodList1);
 		
-		assertEquals(prodSaveListResp(prodList1), control.removeOnSaleList(ids));
+		assertEquals(prodSavedListResp(prodList1), control.removeOnSaleList(ids));
 	}
 
 	@Test
@@ -333,7 +350,7 @@ class ProductControllerTest {
 	void testAddStockOk() {
 		when(service.addStock(1, 1L)).thenReturn(fullProd1);
 		
-		assertEquals(prodSaveResp(fullProd1), control.addStock(1, 1L));
+		assertEquals(prodSavedResp(fullProd1), control.addStock(1, 1L));
 	}
 /*
 	@Test
@@ -363,7 +380,7 @@ class ProductControllerTest {
 	void testRemoveStockOk() {
 		when(service.sellStock(1, 1l)).thenReturn(fullProd1);
 		
-		assertEquals(prodSaveResp(fullProd1), control.sellStock(1, 1L));
+		assertEquals(prodSavedResp(fullProd1), control.sellStock(1, 1L));
 	}
 
 	@Test

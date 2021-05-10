@@ -8,156 +8,156 @@ class ProductTest {
 
 	@Test
 	void testGetId() {
-		Product fullProd = new Product("A", 1.0, 2, false);
+		Product fullObj = new Product("A", 1.0, 2, false);
 		
-		assertEquals(null, fullProd.getId());
+		assertEquals(null, fullObj.getId());
 	}
 
 	@Test
 	void testSetId() {
-		Product emptyProd = new Product();
+		Product emptyObj = new Product();
 		
-		assertEquals(null, emptyProd.getId());
+		assertEquals(null, emptyObj.getId());
 		
-		emptyProd.setId(1L);
+		emptyObj.setId(1L);
 		
-		assertEquals(1L, emptyProd.getId());
+		assertEquals(1L, emptyObj.getId());
 	}
 
 	@Test
 	void testGetName() {
-		Product fullProd = new Product("A", 1.0, 2, false);
+		Product fullObj = new Product("A", 1.0, 2, false);
 		
-		assertEquals("A", fullProd.getName());
+		assertEquals("A", fullObj.getName());
 	}
 
 	@Test
 	void testSetName() {
-		Product emptyProd = new Product();
+		Product emptyObj = new Product();
 		
-		assertEquals(null, emptyProd.getName());
+		assertEquals(null, emptyObj.getName());
 		
-		emptyProd.setName("BBB");
+		emptyObj.setName("BBB");
 		
-		assertEquals("BBB", emptyProd.getName());
+		assertEquals("BBB", emptyObj.getName());
 	}
 
 	@Test
 	void testGetPrice() {
-		Product fullProd = new Product("A", 1.0, 2, false);
+		Product fullObj = new Product("A", 1.0, 2, false);
 		
-		assertEquals(1.0, fullProd.getPrice());
+		assertEquals(1.0, fullObj.getPrice());
 	}
 
 	@Test
 	void testSetPrice() {
-		Product emptyProd = new Product();
+		Product emptyObj = new Product();
 		
-		assertEquals(null, emptyProd.getPrice());
+		assertEquals(null, emptyObj.getPrice());
 		
-		emptyProd.setPrice(66.0);
+		emptyObj.setPrice(66.0);
 		
-		assertEquals(66.0, emptyProd.getPrice());
+		assertEquals(66.0, emptyObj.getPrice());
 	}
 
 	@Test
 	void testGetStock() {
-		Product fullProd = new Product("A", 1.0, 2, false);
+		Product fullObj = new Product("A", 1.0, 2, false);
 		
-		assertEquals(2, fullProd.getStock());
+		assertEquals(2, fullObj.getStock());
 	}
 
 	@Test
 	void testSetStock() {
-		Product emptyProd = new Product();
+		Product emptyObj = new Product();
 		
-		assertEquals(null, emptyProd.getStock());
+		assertEquals(null, emptyObj.getStock());
 		
-		emptyProd.setStock(5);
+		emptyObj.setStock(5);
 		
-		assertEquals(5, emptyProd.getStock());
+		assertEquals(5, emptyObj.getStock());
 	}
 
 	@Test
 	void testGetOnSale() {
-		Product fullProd = new Product("A", 1.0, 2, false);
+		Product fullObj = new Product("A", 1.0, 2, false);
 		
-		assertEquals(false, fullProd.getOnSale());
+		assertEquals(false, fullObj.getOnSale());
 	}
 
 	@Test
 	void testSetOnSale() {
-		Product emptyProd = new Product();
+		Product emptyObj = new Product();
 		
-		assertEquals(null, emptyProd.getOnSale());
+		assertEquals(null, emptyObj.getOnSale());
 		
-		emptyProd.setOnSale(true);
+		emptyObj.setOnSale(true);
 		
-		assertEquals(true, emptyProd.getOnSale());
+		assertEquals(true, emptyObj.getOnSale());
 	}
 
 	@Test
 	void testHasEnoughStockToSell() {
-		Product fullProd = new Product("A", 1.0, 2, false);
+		Product fullObj = new Product("A", 1.0, 2, false);
 		
-		assertFalse(fullProd.hasEnoughStockToSell(50));
+		assertFalse(fullObj.hasEnoughStockToSell(50));
 		
-		fullProd.setStock(51);
+		fullObj.setStock(51);
 		
-		assertTrue(fullProd.hasEnoughStockToSell(50));
+		assertTrue(fullObj.hasEnoughStockToSell(50));
 	}
 
 	@Test
 	void testEqualsObject() {
-		Product emptyProd = new Product();
-		Product fullProd = new Product("A", 1.0, 2, false);
-		fullProd.setId(1L);
+		Product emptyObj = new Product();
+		Product fullObj = new Product("A", 1.0, 2, false);
+		fullObj.setId(1L);
 
-        assertEquals(emptyProd,emptyProd);		// mismos objs
-        assertNotEquals(emptyProd,null);		// el segundo null
-        assertNotEquals(emptyProd,27);			// el segundo de otro tipo
+        assertEquals(emptyObj,emptyObj);	// mismos objs.
+        assertNotEquals(emptyObj,null);		// el segundo null.
+        assertNotEquals(emptyObj,27);		// el segundo de otro tipo.
         
-		assertNotEquals(emptyProd,fullProd);	// primero con param null, el otro no
-		fullProd.setId(null);
-		assertNotEquals(emptyProd,fullProd);	// los dos param null
-		fullProd.setId(1L);
-		emptyProd.setId(2L);
-		assertNotEquals(emptyProd,fullProd);	// los dos no null pero distintos
+		assertNotEquals(emptyObj,fullObj);	// primero con param null, el otro no.
+		fullObj.setId(null);
+		assertNotEquals(emptyObj,fullObj);	// los dos param null.
+		fullObj.setId(1L);
+		emptyObj.setId(2L);
+		assertNotEquals(emptyObj,fullObj);	// los dos no null pero distintos.
 		
-		emptyProd.setId(1L);
-		assertNotEquals(emptyProd,fullProd);	// los param anteriores iguales, empiezo de cero con el otro param, asi sucesivamente
-		fullProd.setName(null);
-		assertNotEquals(emptyProd,fullProd);
-		fullProd.setName("A");
-		emptyProd.setName("B");
-		assertNotEquals(emptyProd,fullProd);
+		emptyObj.setId(1L);
+		assertNotEquals(emptyObj,fullObj);	// los param anteriores iguales, ahora empiezo de cero con el otro param, asi sucesivamente.
+		fullObj.setName(null);
+		assertNotEquals(emptyObj,fullObj);
+		fullObj.setName("A");
+		emptyObj.setName("B");
+		assertNotEquals(emptyObj,fullObj);
 		
-		emptyProd.setName("A");
-		assertNotEquals(emptyProd,fullProd);
-		fullProd.setOnSale(null);
-		assertNotEquals(emptyProd,fullProd);
-		fullProd.setOnSale(false);
-		emptyProd.setOnSale(true);
-		assertNotEquals(emptyProd,fullProd);
+		emptyObj.setName("A");
+		assertNotEquals(emptyObj,fullObj);
+		fullObj.setOnSale(null);
+		assertNotEquals(emptyObj,fullObj);
+		fullObj.setOnSale(false);
+		emptyObj.setOnSale(true);
+		assertNotEquals(emptyObj,fullObj);
 		
-		emptyProd.setOnSale(false);
-		assertNotEquals(emptyProd,fullProd);
-		fullProd.setPrice(null);
-		assertNotEquals(emptyProd,fullProd);
-		fullProd.setPrice(1.0);
-		emptyProd.setPrice(1.1);
-		assertNotEquals(emptyProd,fullProd);
+		emptyObj.setOnSale(false);
+		assertNotEquals(emptyObj,fullObj);
+		fullObj.setPrice(null);
+		assertNotEquals(emptyObj,fullObj);
+		fullObj.setPrice(1.0);
+		emptyObj.setPrice(1.1);
+		assertNotEquals(emptyObj,fullObj);
 		
-		emptyProd.setPrice(1.0);
-		assertNotEquals(emptyProd,fullProd);
-		fullProd.setStock(null);
-		assertEquals(emptyProd,fullProd);		// para el ultimo param cuando los dos sean null de hecho ya dan equals
-		fullProd.setStock(2);
-		emptyProd.setStock(22);
-		assertNotEquals(emptyProd,fullProd);
+		emptyObj.setPrice(1.0);
+		assertNotEquals(emptyObj,fullObj);
+		fullObj.setStock(null);
+		assertEquals(emptyObj,fullObj);		// para el ultimo param cuando los dos sean null de hecho ya dan equals
+		fullObj.setStock(2);
+		emptyObj.setStock(22);
+		assertNotEquals(emptyObj,fullObj);
 		
-		emptyProd.setStock(2);
-		assertEquals(emptyProd,fullProd);
+		emptyObj.setStock(2);
+		assertEquals(emptyObj,fullObj);
 		
 		
         
@@ -165,17 +165,17 @@ class ProductTest {
 
 	@Test
 	void testHashCode() {
-		Product emptyProd = new Product();
-		Product fullProd = new Product("A", 1.0, 2, false);
-		fullProd.setId(1L);
+		Product emptyObj = new Product();
+		Product fullObj = new Product("A", 1.0, 2, false);
+		fullObj.setId(1L);
 		
-        assertNotEquals(emptyProd.hashCode(),fullProd.hashCode());
+        assertNotEquals(emptyObj.hashCode(),fullObj.hashCode());
 	}
 	
 	@Test
 	void testToString() {
-		Product fullProd = new Product("A", 1.0, 2, false);
-		fullProd.setId(1L);
+		Product fullObj = new Product("A", 1.0, 2, false);
+		fullObj.setId(1L);
 		
 		String str = "Product ["
 				+ "id=" + 1 +
@@ -185,7 +185,7 @@ class ProductTest {
 				", onSale=" + false
 				+ "]";
 		
-		assertEquals(str, fullProd.toString());
+		assertEquals(str, fullObj.toString());
 	}
 
 }

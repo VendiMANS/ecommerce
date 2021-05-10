@@ -9,5 +9,5 @@
   <system systemId="http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" uri="jar:file:/C:/Users/lucas.a.vendittelli/eclipse/java-2020-12/eclipse/../../../.p2/pool/plugins/org.eclipse.m2e.model.edit_1.16.0.20200514-1409.jar!/xsd/archetype-descriptor-1.0.0.xsd"/>
   <system systemId="http://www.w3.org/2001/xml.xsd" uri="jar:file:/C:/Users/lucas.a.vendittelli/eclipse/java-2020-12/eclipse/../../../.p2/pool/plugins/org.eclipse.xsd_2.18.0.v20200917-0747.jar!/cache/www.w3.org/2001/xml.xsd"/>
   <uri name="http://www.w3.org/2001/XMLSchema" uri="jar:file:/C:/Users/lucas.a.vendittelli/eclipse/java-2020-12/eclipse/../../../.p2/pool/plugins/org.eclipse.xsd_2.18.0.v20200917-0747.jar!/cache/www.w3.org/2001/XMLSchema.xsd"/>
-  <public publicId="-//LOG4J//DTD LOG4J//EN" uri="jar:file:/C:/Users/lucas.a.vendittelli/.p2/pool/plugins/org.springsource.ide.eclipse.commons.ui_4.10.0.202103111026.jar!/dtd/log4j-1.2.dtd" webURL="https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd"/>
+  <public publicId="-//LOG4J//DTD LOG4J//EN" uri="jar:file:/C:/Users/lucas.a.vendittelli/eclipse/java-2020-12/eclipse/../../../.p2/pool/plugins/org.springsource.ide.eclipse.commons.ui_4.10.0.202103111026.jar!/dtd/log4j-1.2.dtd" webURL="https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd"/>
 </catalog>

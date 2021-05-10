@@ -50,7 +50,16 @@ public class ProductController {
 		if(offers.size() > 0) {
 			return new ResponseEntity<>(offers, HttpStatus.OK);
 		}
-		return new ResponseEntity<>("This list is empty", HttpStatus.OK);
+		return new ResponseEntity<>("This list is empty", HttpStatus.BAD_REQUEST);
+	}
+	
+	@GetMapping("/find/list")
+	public ResponseEntity<Object> findList(@RequestBody List<Long> ids) {
+		List<Product> prodList = service.findList(ids);
+		if(prodList.size() > 0) {
+			return new ResponseEntity<>(prodList, HttpStatus.OK);
+		}
+		return new ResponseEntity<>("This list is empty", HttpStatus.BAD_REQUEST);
 	}
 	
 	@GetMapping("/find/all")
@@ -59,7 +68,7 @@ public class ProductController {
 		if(allProds.size() > 0) {
 			return new ResponseEntity<>(allProds, HttpStatus.OK);
 		}
-		return new ResponseEntity<>("This list is empty", HttpStatus.OK);
+		return new ResponseEntity<>("This list is empty", HttpStatus.BAD_REQUEST);
 	}
 	
 	
@@ -79,7 +88,7 @@ public class ProductController {
 		if(saves.size() > 0) {
 			return new ResponseEntity<>(saves, HttpStatus.CREATED);
 		}
-		return new ResponseEntity<>("This list is empty", HttpStatus.OK);
+		return new ResponseEntity<>("This list is empty", HttpStatus.BAD_REQUEST);
 	}
 	
 	
