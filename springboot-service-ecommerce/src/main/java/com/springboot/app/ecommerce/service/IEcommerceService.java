@@ -15,6 +15,8 @@ import com.springboot.app.ecommerce.model.Sale;
 
 public interface IEcommerceService {
 	
+	
+	
 	public Product productSave(Product product);
 	public List<Product> productSaveAll(List<Product> products);
 	public Product productEditPrice(Double price, Long id);
