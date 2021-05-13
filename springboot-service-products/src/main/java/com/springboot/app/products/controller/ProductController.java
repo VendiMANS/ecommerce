@@ -35,15 +35,6 @@ public class ProductController {
 		return new ResponseEntity<>("There's no product with such id.", HttpStatus.BAD_REQUEST);
 	}
 	
-	@GetMapping("/find/name")
-	public ResponseEntity<Object> findByName(@RequestBody String name) {
-		Optional<Product> productSearch = service.findByName(name);
-		if(productSearch.isPresent()) {
-			return new ResponseEntity<>(productSearch.get(), HttpStatus.OK);
-		}
-		return new ResponseEntity<>("There's no product with such name.", HttpStatus.BAD_REQUEST);
-	}
-	
 	@GetMapping("/find/offers")
 	public ResponseEntity<Object> findOffers(){
 		List<Product> offers = service.findOffers();
@@ -70,6 +61,28 @@ public class ProductController {
 		}
 		return new ResponseEntity<>("This list is empty", HttpStatus.BAD_REQUEST);
 	}
+	
+	@GetMapping("/hasEnoughStockToSell/{id}/{stockToSell}")
+	public ResponseEntity<Boolean> hasEnoughStockToSell(@PathVariable Integer stockToSell, @PathVariable Long id) {
+		Optional<Product> productSearch = service.findById(id);
+		if(productSearch.isPresent()) {
+			Product prod = productSearch.get();
+			return new ResponseEntity<>(prod.hasEnoughStockToSell(stockToSell), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+	}
+	
+	@GetMapping("/getProduct/{id}")
+	public ResponseEntity<Product> getProduct(@PathVariable Long id){
+		Optional<Product> productSearch = service.findById(id);
+		if(productSearch.isPresent()) {
+			Product prod = productSearch.get();
+			return new ResponseEntity<>(prod, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+	}
+	
+	
 	
 	
 	
@@ -158,7 +171,7 @@ public class ProductController {
 		return new ResponseEntity<>("There's no product with any of those ids.", HttpStatus.BAD_REQUEST);
 	}
 	
-	@PutMapping("/stock/add/{id}")
+	@PutMapping("/edit/stock/add/{id}")
 	public ResponseEntity<Object> addStock(@RequestBody Integer stock, @PathVariable Long id) {
 		Product productInDB = service.addStock(stock,id);
 		if(productInDB != null) {
@@ -176,7 +189,7 @@ public class ProductController {
 		return new ResponseEntity<>("There's no product with any of those ids.", HttpStatus.BAD_REQUEST); 
 	}
 	*/
-	@PutMapping("/stock/sell/{id}")
+	@PutMapping("/edit/stock/sell/{id}")
 	public ResponseEntity<Object> sellStock(@RequestBody Integer stock, @PathVariable Long id) {
 		Product productInDB = service.sellStock(stock,id);
 		if(productInDB != null) {

@@ -18,6 +18,8 @@ public interface IProductService {
 	public List<Product> findOffers();
 	public List<Product> findList(List<Long> ids);
 	public List<Product> findAll();
+	
+	public Boolean hasEnoughStockToSell(Integer stockToSell, Long id);
 
 	public Product edit(Product product, Long id);
 	public Product editPrice(Double price, Long id);

@@ -15,23 +15,6 @@ import com.springboot.app.ecommerce.model.Sale;
 
 public interface IEcommerceService {
 	
-	public Product productSave(Product product);
-	public List<Product> productSaveAll(List<Product> products);
-	public Product productEditPrice(Double price, Long id);
-	public List<Product> productEditPriceMap( Map<Long, Double> products);
-	public Product productPutOnSale(Long id);
-	public List<Product> productPutOnSaleList(List<Long> ids);
-	public Product productRemoveOnSale(Long id);
-	public List<Product> productRemoveOnSaleList(List<Long> ids);
-	public Product productAddStock(Integer stock, Long id);
-	//public List<Product> productAddStockMap(Map<Long, Integer> idAndStocks);
-	public Product productFindById(Long id);
-	public Product productFindByName(String name);
-	public List<Product> productFindAll();
-	public List<Product> productFindOffers();
-	public void productDeleteById(Long id);
-	public void productDeleteAll();
-	
 	
 	
 	public List<Sale> findAllByMonth(Integer month);
@@ -42,8 +25,10 @@ public interface IEcommerceService {
 	public void deleteById(Long id);
 	
 	public List<CartItem> getCart();
-	public Product addProdToCart(Long prodId, Integer amount);
-	public Product removeProdFromCart(Long prodId, Integer amount);
+	public void addProdToCart(Long prodId, Integer amount);
+	public void removeProdFromCart(Long prodId, Integer amount);
 	public List<CartItem> purchaseCart();
 	public void clearCart();
+	
+	public Boolean cartIsEmpty();
 }
