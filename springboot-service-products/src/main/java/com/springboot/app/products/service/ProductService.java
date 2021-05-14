@@ -37,7 +37,16 @@ public class ProductService implements IProductService {
 		return repository.saveAll(listToSave);
 	}
 	
-	
+	@Override
+	@Transactional(readOnly = true)
+	public Boolean hasEnoughStockToSell(Integer stockToSell, Long id) {
+		Optional<Product> optProd = repository.findById(id);
+		if(!optProd.isEmpty()) {
+			Product prod = optProd.get();
+			return prod.hasEnoughStockToSell(stockToSell);
+		}
+		return false;
+	}
 	
 	
 	
@@ -77,7 +86,7 @@ public class ProductService implements IProductService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Product> findAll() {
-		return (List<Product>) repository.findAll();
+		return repository.findAll();
 	}
 	
 	

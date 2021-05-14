@@ -18,8 +18,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import static org.mockito.Mockito.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import com.springboot.app.ecommerce.service.EcommerceService;
 
@@ -27,6 +30,9 @@ class EcommerceControllerTest {
 
 	@Mock
 	private EcommerceService service;
+	
+	@Mock
+	private RestTemplate restClient;
 	
 	@InjectMocks
 	private EcommerceController control;
@@ -167,148 +173,222 @@ class EcommerceControllerTest {
 	}
 	
 	
+	private void stubProductFindById(Long id, ResponseEntity<Object> resp) {
+		
+		String uri = "http://localhost:8001/find/id/{id}";
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+	    params.put("id", id);
+		
+	    when(restClient.getForEntity(
+				uri,
+				Object.class,
+				params))
+		.thenReturn(resp);
+		
+	}
+	
+	private void stubProductSave(Product product, ResponseEntity<Object> resp) {
+		
+		String uri = "http://localhost:8001/save";
+		
+		when(restClient.postForEntity(
+				uri,
+				product,
+				Object.class))
+		.thenReturn(resp);
+	}
+	
+	private void stubProductSaveAll(List<Product> products, ResponseEntity<Object> resp) {
+		
+		String uri = "http://localhost:8001/save/all";
+		
+		when(restClient.postForEntity(
+				uri,
+				products,
+				Object.class))
+		.thenReturn(resp);
+	}
+	
+	private void stubProductFindOffers(ResponseEntity<Object> resp) {
+		
+		String uri = "http://localhost:8001/find/offers";
+		
+		when(restClient.getForEntity(
+				uri,
+				Object.class))
+		.thenReturn(resp);
+		
+	}
+	
+	private void stubProductFindAll(ResponseEntity<Object> resp) {
+		
+		String uri = "http://localhost:8001/find/all";
+		
+		when(restClient.getForEntity(
+				uri,
+				Object.class))
+		.thenReturn(resp);
+		
+	}
+	
+	
+	
+	
+	
 	
 	@Test
 	void testProductSaveError() {
-		when(service.productSave(fullProd1)).thenReturn(null);
+		stubProductSave(fullProd1, errorProdAlreadySavedResp);
 		
 		assertEquals(errorProdAlreadySavedResp, control.productSave(fullProd1));
 	}
 	
 	@Test
 	void testProductSaveOk() {
-		when(service.productSave(fullProd1)).thenReturn(fullProd1);
+		stubProductSave(fullProd1, prodSavedResp(fullProd1));
 		
 		assertEquals(prodSavedResp(fullProd1), control.productSave(fullProd1));
 	}
 
 	@Test
 	void testProductSaveAllEmpty() {
-		when(service.productSaveAll(prodList1)).thenReturn(null);
+		stubProductSaveAll(prodList1, errorEmptyList);
 		
 		assertEquals(errorEmptyList, control.productSaveAll(prodList1));
 	}
 	
 	@Test
 	void testProductSaveAllOk() {
-		when(service.productSaveAll(prodList1)).thenReturn(prodList1);
+		stubProductSaveAll(prodList1, prodSavedListResp(prodList1));
 		
 		assertEquals(prodSavedListResp(prodList1), control.productSaveAll(prodList1));
 	}
 
 	@Test
 	void testProductEditPriceNull() {
-		when(service.productEditPrice(2.5,1L)).thenReturn(null);
+		
+		stubProductFindById(1L, errorNoProdFoundByIdResp);
 		
 		assertEquals(errorNoProdFoundByIdResp, control.productEditPrice(2.5,1L));
 	}
 	
 	@Test
 	void testProductEditPriceOk() {
-		when(service.productEditPrice(5.5,1L)).thenReturn(fullProd1);
-		
-		assertEquals(prodSavedResp(fullProd1), control.productEditPrice(5.5,1L));
-	}
 
+		stubProductFindById(1L, prodFoundResp(fullProd1));
+		
+		assertEquals(prodFoundResp(fullProd1), control.productEditPrice(5.5,1L));
+	}
+/*
 	@Test
 	void testProductEditPriceMapEmpty() {
 		when(service.productEditPriceMap(idAndPricesA)).thenReturn(null);
 		
 		assertEquals(errorNoProdFoundInContainerResp, control.productEditPriceMap(idAndPricesA));
 	}
-	
+	*/
 	@Test
 	void testProductEditPriceMapOk() {
-		when(service.productEditPriceMap(idAndPricesA)).thenReturn(prodList1);
+
+		ResponseEntity<Object> resp = control.productEditPriceMap(idAndPricesA);
 		
-		assertEquals(prodSavedListResp(prodList1), control.productEditPriceMap(idAndPricesA));
+		assertEquals(resp.getStatusCode(), HttpStatus.OK);
 	}
 
 	@Test
 	void testProductPutOnSaleNull() {
-		when(service.productPutOnSale(1L)).thenReturn(null);
+		stubProductFindById(1L, errorNoProdFoundByIdResp);
 		
 		assertEquals(errorNoProdFoundByIdResp, control.productPutOnSale(1L));
 	}
 	
 	@Test
 	void testProductPutOnSaleOk() {
-		when(service.productPutOnSale(1L)).thenReturn(fullProd1);
 		
-		assertEquals(prodSavedResp(fullProd1), control.productPutOnSale(1L));
+		
+		stubProductFindById(1L, prodFoundResp(fullProd1));
+		
+		assertEquals(prodFoundResp(fullProd1), control.productPutOnSale(1L));
 	}
-
+/*
 	@Test
 	void testProductPutOnSaleListEmpty() {
 		when(service.productPutOnSaleList(ids)).thenReturn(null);
 		
 		assertEquals(errorNoProdFoundInContainerResp, control.productPutOnSaleList(ids));
 	}
-	
+*/	
 	@Test
 	void testProductPutOnSaleListOk() {
-		when(service.productPutOnSaleList(ids)).thenReturn(prodList1);
+		ResponseEntity<Object> resp = control.productPutOnSaleList(ids);
 		
-		assertEquals(prodSavedListResp(prodList1), control.productPutOnSaleList(ids));
+		assertEquals(resp.getStatusCode(), HttpStatus.OK);
 	}
 
 	@Test
 	void testProductRemoveOnSaleNull() {
-		when(service.productRemoveOnSale(1L)).thenReturn(null);
 		
-		assertEquals(errorNoProdFoundByIdResp, control.productRemoveOnSale(1L));
+		stubProductFindById(1L, prodFoundResp(fullProd1));
+		
+		assertEquals(prodFoundResp(fullProd1), control.productRemoveOnSale(1L));
 	}
 	
 	@Test
 	void testProductRemoveOnSaleOk() {
-		when(service.productRemoveOnSale(2L)).thenReturn(fullProd2);
 		
-		assertEquals(prodSavedResp(fullProd2), control.productRemoveOnSale(2L));
+		stubProductFindById(1L, prodFoundResp(fullProd1));
+		
+		assertEquals(prodFoundResp(fullProd1), control.productRemoveOnSale(1L));
 	}
-
+/*
 	@Test
 	void testProductRemoveOnSaleListEmpty() {
 		when(service.productRemoveOnSaleList(ids)).thenReturn(null);
 		
 		assertEquals(errorNoProdFoundInContainerResp, control.productRemoveOnSaleList(ids));
 	}
-	
+	*/
 	@Test
 	void testProductRemoveOnSaleListOk() {
-		when(service.productRemoveOnSaleList(ids)).thenReturn(prodList1);
+		ResponseEntity<Object> resp = control.productRemoveOnSaleList(ids);
 		
-		assertEquals(prodSavedListResp(prodList1), control.productRemoveOnSaleList(ids));
+		assertEquals(resp.getStatusCode(), HttpStatus.OK);
 	}
 
 
 	@Test
 	void testProductAddStockNull() {
-		when(service.productAddStock(1,1L)).thenReturn(null);
+
+		stubProductFindById(1L, errorNoProdFoundByIdResp);
 		
 		assertEquals(errorNoProdFoundByIdResp, control.productAddStock(1,1L));
 	}
 	
 	@Test
 	void testProductAddStockOk() {
-		when(service.productAddStock(1,1L)).thenReturn(fullProd1);
 		
-		assertEquals(prodSavedResp(fullProd1), control.productAddStock(1,1L));
+		stubProductFindById(1L, prodFoundResp(fullProd1));
+		
+		assertEquals(prodFoundResp(fullProd1), control.productAddStock(1,1L));
 	}
 
 	@Test
 	void testProductFindByIdNull() {
-		when(service.productFindById(1L)).thenReturn(null);
+		
+		stubProductFindById(1L, errorNoProdFoundByIdResp);
 		
 		assertEquals(errorNoProdFoundByIdResp, control.productFindById(1L));
 	}
 	
 	@Test
 	void testProductFindByIdOk() {
-		when(service.productFindById(2L)).thenReturn(fullProd2);
+		
+		stubProductFindById(2L, prodFoundResp(fullProd2));
 		
 		assertEquals(prodFoundResp(fullProd2), control.productFindById(2L));
 	}
-
+/*
 	@Test
 	void testProductFindByNameNull() {
 		when(service.productFindByName("A")).thenReturn(null);
@@ -322,31 +402,35 @@ class EcommerceControllerTest {
 		
 		assertEquals(prodFoundResp(fullProd2), control.productFindByName("B"));
 	}
-
+*/
 	@Test
 	void testProductFindOffersEmpty() {
-		when(service.productFindOffers()).thenReturn(null);
+		
+		stubProductFindOffers(errorEmptyList);
 		
 		assertEquals(errorEmptyList, control.productFindOffers());
 	}
 	
 	@Test
 	void testProductFindAllEmptyOffers() {
-		when(service.productFindOffers()).thenReturn(prodList1);
+		
+		stubProductFindOffers(prodFoundListResp(prodList1));
 		
 		assertEquals(prodFoundListResp(prodList1), control.productFindOffers());
 	}
 
 	@Test
 	void testProductFindAllEmpty() {
-		when(service.productFindAll()).thenReturn(null);
+
+		stubProductFindAll(errorEmptyList);
 		
 		assertEquals(errorEmptyList, control.productFindAll());
 	}
 	
 	@Test
-	void testProductFindAllEmptyOk() {
-		when(service.productFindAll()).thenReturn(prodList1);
+	void testProductFindAllOk() {
+		
+		stubProductFindAll(prodFoundListResp(prodList1));
 		
 		assertEquals(prodFoundListResp(prodList1), control.productFindAll());
 	}
@@ -369,7 +453,7 @@ class EcommerceControllerTest {
 		
 		assertEquals(resp, control.getCart());
 	}
-
+/*
 	@Test
 	void testAddProdToCartError() {
 		when(service.addProdToCart(1L, 1)).thenReturn(null);
@@ -501,5 +585,5 @@ class EcommerceControllerTest {
 		ResponseEntity<Object> resp = new ResponseEntity<>("Sale of id " + 1 + " has been deleted", HttpStatus.OK);
 		assertEquals(resp, control.deleteById(1L));
 	}
-
+*/
 }

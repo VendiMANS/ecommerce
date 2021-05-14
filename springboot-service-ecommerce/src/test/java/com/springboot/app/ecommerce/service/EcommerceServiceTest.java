@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import static org.mockito.Mockito.*;
 
@@ -22,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.springboot.app.ecommerce.client.IFeignClient;
 import com.springboot.app.ecommerce.repository.ISaleRepository;
 
 class EcommerceServiceTest {
@@ -31,7 +31,10 @@ class EcommerceServiceTest {
 	private ISaleRepository repository;
 	
 	@Mock
-	private IFeignClient client;
+	private RestTemplate client;
+	
+	//@Mock
+	//private Map<Long, Integer> cart = new HashMap<>();
 	
 	@InjectMocks
 	private EcommerceService service;
@@ -47,11 +50,17 @@ class EcommerceServiceTest {
 	
 	private Optional<Product> emptyProdOpt;
 	
+	private ResponseEntity<Product> errorNoProdFoundByIdRespGet;
+	
 	private ResponseEntity<Object> errorNoProdFoundByIdResp;
 	private ResponseEntity<Object> errorNoProdFoundByNameResp;
 	private ResponseEntity<Object> errorProdAlreadySavedResp;
 	private ResponseEntity<Object> errorNoProdFoundInContainerResp;
 	private ResponseEntity<Object> errorEmptyList;
+	
+	private ResponseEntity<Product> prodFoundRespGet(Product prod){
+		return new ResponseEntity<>(prod, HttpStatus.OK);
+	}
 	
 	private ResponseEntity<Object> prodFoundResp(Product prod){
 		return new ResponseEntity<>(prod, HttpStatus.OK);
@@ -68,6 +77,12 @@ class EcommerceServiceTest {
 	private ResponseEntity<Object> prodSavedListResp(List<Product> prods){
 		return new ResponseEntity<>(prods, HttpStatus.CREATED);
 	}
+	
+	
+	private ResponseEntity<Boolean> boolResp(Boolean bool){
+		return new ResponseEntity<>(bool, HttpStatus.OK);
+	}
+	
 	
 	private Product emptyProd;
 	private Product fullProd1;
@@ -103,6 +118,10 @@ class EcommerceServiceTest {
 		
 		
 		emptyProdOpt = Optional.empty();
+		
+		
+		
+		errorNoProdFoundByIdRespGet = new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		
 		errorNoProdFoundByIdResp = new ResponseEntity<>("There's no product with such id.", HttpStatus.BAD_REQUEST);
 		errorNoProdFoundByNameResp = new ResponseEntity<>("There's no product with such name.", HttpStatus.BAD_REQUEST);
@@ -143,210 +162,147 @@ class EcommerceServiceTest {
 	}
 	
 	
-	
-	@Test
-	void testProductSaveNull() {
-		when(client.save(fullProd1)).thenReturn(errorProdAlreadySavedResp);
+	private void stubProductGet(Long id, ResponseEntity<Product> resp) {
 		
-		assertNull(service.productSave(fullProd1));
+		String uri = "http://localhost:8001/getProduct/{id}";
+		
+		Map<String, String> params = new HashMap<String, String>();
+	    params.put("id", id.toString());
+		
+	    when(client.getForEntity(
+				uri,
+				Product.class,
+				params))
+		.thenReturn(resp);
+		
 	}
 	
-	@Test
-	void testProductSaveOk() {
-		when(client.save(fullProd2)).thenReturn(prodSavedResp(fullProd2));
+	
+	private void stubProductFindById(Long id, ResponseEntity<Object> resp) {
 		
-		assertEquals(fullProd2,service.productSave(fullProd2));
+		String uri = "http://localhost:8001/find/id/{id}";
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+	    params.put("id", id);
+		
+	    when(client.getForEntity(
+				uri,
+				Object.class,
+				params))
+		.thenReturn(resp);
+		
 	}
+	
+	private void stubProductFindByName(String name, ResponseEntity<Object> resp) {
+		
+		String uri = "http://localhost:8001/find/name";
+		
+		Map<String, String> params = new HashMap<String, String>();
+	    params.put("name", name);
+		
+		when(client.getForEntity(
+				uri,
+				Object.class,
+				params))
+		.thenReturn(resp);
+		
+	}
+	
+	private void stubProductFindOffers(ResponseEntity<Object> resp) {
+		
+		String uri = "http://localhost:8001/find/offers";
+		
+		when(client.getForEntity(
+				uri,
+				Object.class))
+		.thenReturn(resp);
+		
+	}
+	
+	private void stubProductFindAll(ResponseEntity<Object> resp) {
+		
+		String uri = "http://localhost:8001/find/all";
+		
+		when(client.getForEntity(
+				uri,
+				Object.class))
+		.thenReturn(resp);
+		
+	}
+	
+	private void stubProductSave(Product product, ResponseEntity<Object> resp) {
+		
+		String uri = "http://localhost:8001/save";
+		
+		when(client.postForObject(
+				uri,
+				product,
+				ResponseEntity.class))
+		.thenReturn(resp);
+	}
+	
+	private void stubProductSaveAll(List<Product> products, ResponseEntity<Object> resp) {
+		
+		String uri = "http://localhost:8001/save/all";
+		
+		when(client.postForObject(
+				uri,
+				products,
+				ResponseEntity.class))
+		.thenReturn(resp);
+	}
+	
+	private void stubProductEditPrice(Double price, Long id, ResponseEntity<Object> resp) {
+		
+		String uri = "http://localhost:8001/edit/price/{id}";
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+	    params.put("id", id);
+	    params.put("price", price);
+	    
+	    when(client.postForObject(
+	    		uri,
+	    		params,
+	    		ResponseEntity.class))
+	    .thenReturn(resp);
+	}
+	
+	private void stubProductHasEnoughStockTrue(Integer amount, Long id) {
+		
+		String uri = "http://localhost:8001/hasEnoughStockToSell/{id}/{stockToSell}";
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+	    params.put("id", id);
+	    params.put("stockToSell", amount);
+	    
+	    when(client.getForEntity(
+						uri,
+						Boolean.class,
+						params)).
+	    thenReturn(boolResp(true));
+		
+	}
+	
+private void stubProductHasEnoughStockFalse(Integer amount, Long id) {
+		
+		String uri = "http://localhost:8001/hasEnoughStockToSell/{id}/{stockToSell}";
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+	    params.put("id", id);
+	    params.put("stockToSell", amount);
+	    
+	    when(client.getForEntity(
+					uri,
+					Boolean.class,
+					params)).
+	    thenReturn(boolResp(false));
+		
+	}
+	
+	
+	
+	
 
-	@Test
-	void testProductSaveAllEmpty() {
-		prodList1.add(emptyProd);
-		when(client.saveAll(prodList1)).thenReturn(errorEmptyList);
-		
-		assertNull(service.productSaveAll(prodList1));
-	}
-	
-	@Test
-	void testProductSaveAllOk() {
-		prodList1.add(emptyProd);
-		when(client.saveAll(prodList1)).thenReturn(prodSavedListResp(prodList1));
-		
-		assertEquals(prodList1,service.productSaveAll(prodList1));
-	}
-
-	@Test
-	void testProductEditPriceNull() {
-		when(client.editPrice(1.0,1L)).thenReturn(errorNoProdFoundByIdResp);
-		
-		assertNull(service.productEditPrice(1.0,1L));
-	}
-	
-	@Test
-	void testProductEditPriceOk() {
-		when(client.editPrice(2.0,2L)).thenReturn(prodSavedResp(fullProd2));
-		
-		assertEquals(fullProd2,service.productEditPrice(2.0,2L));
-	}
-
-	@Test
-	void testProductEditPriceMapEmpty() {
-		when(client.editPriceMap(idAndPricesA)).thenReturn(errorEmptyList);
-		
-		assertNull(service.productEditPriceMap(idAndPricesA));
-	}
-	
-	@Test
-	void testProductEditPriceMapOk() {
-		prodList1.add(emptyProd);
-		when(client.editPriceMap(idAndPricesA)).thenReturn(prodSavedListResp(prodList1));
-		
-		assertEquals(prodList1,service.productEditPriceMap(idAndPricesA));
-	}
-
-	@Test
-	void testProductPutOnSaleNull() {
-		when(client.putOnSale(1L)).thenReturn(errorNoProdFoundByIdResp);
-		
-		assertNull(service.productPutOnSale(1L));
-	}
-	
-	@Test
-	void testProductPutOnSaleOk() {
-		when(client.putOnSale(2L)).thenReturn(prodSavedResp(fullProd2));
-		
-		assertEquals(fullProd2,service.productPutOnSale(2L));
-	}
-
-	@Test
-	void testProductPutOnSaleListEmpty() {
-		when(client.putOnSaleList(ids)).thenReturn(errorEmptyList);
-		
-		assertNull(service.productPutOnSaleList(ids));
-	}
-	
-	@Test
-	void testProductPutOnSaleListOk() {
-		when(client.putOnSaleList(ids)).thenReturn(prodSavedListResp(prodList1));
-		
-		assertEquals(prodList1,service.productPutOnSaleList(ids));
-	}
-
-	@Test
-	void testProductRemoveOnSaleNull() {
-		when(client.removeOnSale(1L)).thenReturn(errorNoProdFoundByIdResp);
-		
-		assertNull(service.productRemoveOnSale(1L));
-	}
-	
-	@Test
-	void testProductRemoveOnSaleOk() {
-		when(client.removeOnSale(2L)).thenReturn(prodSavedResp(fullProd2));
-		
-		assertEquals(fullProd2,service.productRemoveOnSale(2L));
-	}
-
-	@Test
-	void testProductRemoveOnSaleListEmpty() {
-		when(client.removeOnSaleList(ids)).thenReturn(errorEmptyList);
-		
-		assertNull(service.productRemoveOnSaleList(ids));
-	}
-	
-	@Test
-	void testProductRemoveOnSaleListOk() {
-		when(client.removeOnSaleList(ids)).thenReturn(prodSavedListResp(prodList1));
-		
-		assertEquals(prodList1,service.productRemoveOnSaleList(ids));
-	}
-
-	@Test
-	void testProductAddStockNull() {
-		when(client.addStock(11,1L)).thenReturn(errorNoProdFoundByIdResp);
-		
-		assertNull(service.productAddStock(11,1L));
-	}
-	
-	@Test
-	void testProductAddStockOk() {
-		when(client.addStock(22,2L)).thenReturn(prodSavedResp(fullProd2));
-		
-		assertEquals(fullProd2,service.productAddStock(22,2L));
-	}
-
-	@Test
-	void testProductFindByIdNull() {
-		when(client.findById(1L)).thenReturn(errorNoProdFoundByIdResp);
-		
-		assertNull(service.productFindById(1L));
-	}
-	
-	@Test
-	void testProductFindByIdOk() {
-		when(client.findById(2L)).thenReturn(prodFoundResp(fullProd2));
-		
-		assertEquals(fullProd2,service.productFindById(2L));
-	}
-
-	@Test
-	void testProductFindByNameNull() {
-		when(client.findByName("A")).thenReturn(errorNoProdFoundByIdResp);
-		
-		assertNull(service.productFindByName("A"));
-	}
-	
-	@Test
-	void testProductFindByNameOk() {
-		when(client.findByName("B")).thenReturn(prodFoundResp(fullProd2));
-		
-		assertEquals(fullProd2,service.productFindByName("B"));
-	}
-
-	@Test
-	void testProductFindAllEmpty() {
-		when(client.findAll()).thenReturn(errorEmptyList);
-		
-		assertNull(service.productFindAll());
-	}
-	
-	@Test
-	void testProductFindAllOk() {
-		when(client.findAll()).thenReturn(prodFoundListResp(prodList1));
-		
-		assertEquals(prodList1,service.productFindAll());
-	}
-
-	@Test
-	void testProductFindOffersEmpty() {
-		when(client.findOffers()).thenReturn(errorEmptyList);
-		
-		assertNull(service.productFindOffers());
-	}
-	
-	@Test
-	void testProductFindOffersOk() {
-		when(client.findOffers()).thenReturn(prodFoundListResp(prodList1));
-		
-		assertEquals(prodList1,service.productFindOffers());
-	}
-
-	@Test
-	void testProductDeleteByIdNull() {
-		when(client.findById(1L)).thenReturn(errorNoProdFoundByIdResp);
-		
-		service.productDeleteById(1L);
-	}
-	
-	@Test
-	void testProductDeleteByIdOk() {
-		when(client.findById(1L)).thenReturn(prodFoundResp(fullProd1));
-		
-		service.productDeleteById(1L);
-	}
-
-	@Test
-	void testProductDeleteAll() {
-		service.productDeleteAll();
-	}
 
 	@Test
 	void testFindAllByMonthNull() {
@@ -415,8 +371,9 @@ class EcommerceServiceTest {
 
 	@Test
 	void testGetCartNull() {
-		when(client.findById(1L)).thenReturn(errorNoProdFoundByIdResp);
-		when(client.findById(2L)).thenReturn(errorNoProdFoundByIdResp);
+		
+		stubProductGet(1L, errorNoProdFoundByIdRespGet);
+		stubProductGet(2L, errorNoProdFoundByIdRespGet);
 		
 		assertNull(service.getCart());
 	}
@@ -429,11 +386,17 @@ class EcommerceServiceTest {
 		res.add(item1);
 		res.add(item2);
 		
-		when(client.findById(1L)).thenReturn(prodFoundResp(fullProd1));
-		when(client.findById(2L)).thenReturn(prodFoundResp(fullProd2));
+		stubProductFindById(1L, prodFoundResp(fullProd1));
+		stubProductFindById(2L, prodFoundResp(fullProd2));
+		
+		stubProductHasEnoughStockTrue(1, 1L);
+		stubProductHasEnoughStockTrue(2, 2L);
 		
 		service.addProdToCart(1L, 1);
 		service.addProdToCart(2L, 2);
+		
+		stubProductGet(1L, prodFoundRespGet(fullProd1));
+		stubProductGet(2L, prodFoundRespGet(fullProd2));
 		
 		List<CartItem> serviceCart = service.getCart();
 		
@@ -442,8 +405,13 @@ class EcommerceServiceTest {
 
 	@Test
 	void testAddProdToCartInvalidAmount() {
-		when(client.findById(1L)).thenReturn(prodFoundResp(fullProd1));
+		
+		stubProductFindById(1L, prodFoundResp(fullProd1));
+		
+		stubProductHasEnoughStockTrue(0, 1L);
+		
 		service.addProdToCart(1L, 0);
+		
 		assertNull(service.getCart());
 	}
 	
@@ -453,12 +421,18 @@ class EcommerceServiceTest {
 		CartItem item1 = new CartItem(fullProd1,1);
 		res.add(item1);
 		
-		when(client.findById(1L)).thenReturn(prodFoundResp(fullProd1));
+
+		stubProductFindById(1L, prodFoundResp(fullProd1));
+		
+		stubProductHasEnoughStockTrue(1, 1L);
+		
 		service.addProdToCart(1L, 1);
+		
+		stubProductGet(1L, prodFoundRespGet(fullProd1));
 		
 		assertEquals(res, service.getCart());
 		
-		when(client.findById(1L)).thenReturn(errorNoProdFoundByIdResp);
+		stubProductFindById(1L, errorNoProdFoundByIdResp);
 		service.addProdToCart(1L, 1);
 		
 		assertNull(service.getCart());
@@ -467,17 +441,22 @@ class EcommerceServiceTest {
 	@Test
 	void testAddProdToCartNotEnoughStock() {
 		List<CartItem> res = new ArrayList<>();
-		CartItem item1 = new CartItem(fullProd1,2);
+		CartItem item1 = new CartItem(fullProd1,1);
 		res.add(item1);
 		
-		when(client.findById(1L)).thenReturn(prodFoundResp(fullProd1));
+		stubProductFindById(1L, prodFoundResp(fullProd1));
+		
+		stubProductHasEnoughStockTrue(1, 1L);
 		
 		service.addProdToCart(1L, 1);
-		fullProd1.setStock(1);
-		service.addProdToCart(1L, 1);
-		fullProd1.setStock(0);
+		
+		stubProductGet(1L, prodFoundRespGet(fullProd1));
 		
 		assertEquals(res, service.getCart());
+		
+		
+		
+		stubProductHasEnoughStockFalse(1, 1L);
 		
 		service.addProdToCart(1L, 1);
 		
@@ -490,23 +469,27 @@ class EcommerceServiceTest {
 		CartItem item1 = new CartItem(fullProd1,1);
 		res.add(item1);
 		
-		when(client.findById(1L)).thenReturn(prodFoundResp(fullProd1));
+		stubProductFindById(1L, prodFoundResp(fullProd1));
+		stubProductHasEnoughStockTrue(1, 1L);
 		service.addProdToCart(1L, 1);
 		
+		stubProductGet(1L, prodFoundRespGet(fullProd1));
 		assertEquals(res, service.getCart());
 		
 		CartItem item2 = new CartItem(fullProd2,2);
 		res.add(item2);
 		
-		when(client.findById(2L)).thenReturn(prodFoundResp(fullProd2));
+		stubProductFindById(2L, prodFoundResp(fullProd2));
+		stubProductHasEnoughStockTrue(2, 2L);
 		service.addProdToCart(2L, 2);
 		
+		stubProductGet(2L, prodFoundRespGet(fullProd2));
 		assertEquals(res, service.getCart());
 	}
 
 	@Test
 	void testRemoveProdFromCartInvalidAmount() {
-		when(client.findById(1L)).thenReturn(prodFoundResp(fullProd1));
+		stubProductFindById(1L, prodFoundResp(fullProd1));
 		service.removeProdFromCart(1L, 0);
 		assertNull(service.getCart());
 	}
@@ -517,10 +500,11 @@ class EcommerceServiceTest {
 		CartItem item = new CartItem(fullProd1,1);
 		res.add(item);
 		
-		when(client.findById(1L)).thenReturn(prodFoundResp(fullProd1));
+		stubProductFindById(1L, prodFoundResp(fullProd1));
+		stubProductHasEnoughStockTrue(1, 1L);
 		service.addProdToCart(1L, 1);
 		
-		when(client.findById(1L)).thenReturn(errorNoProdFoundByIdResp);
+		stubProductFindById(1L, errorNoProdFoundByIdResp);
 		service.removeProdFromCart(1L, 1);
 		
 		assertNull(service.getCart());
@@ -532,11 +516,14 @@ class EcommerceServiceTest {
 		CartItem item = new CartItem(fullProd1,1);
 		res.add(item);
 		
-		when(client.findById(1L)).thenReturn(prodFoundResp(fullProd1));
+		stubProductFindById(1L, prodFoundResp(fullProd1));
+		stubProductHasEnoughStockTrue(1, 1L);
 		service.addProdToCart(1L, 1);
 		
+		stubProductGet(1L, prodFoundRespGet(fullProd1));
 		assertEquals(res, service.getCart());
 		
+		//stubProductFindById(1L, errorNoProdFoundByIdResp);
 		service.removeProdFromCart(1L, 1);
 		
 		assertNull(service.getCart());
@@ -552,9 +539,12 @@ class EcommerceServiceTest {
 		CartItem item2 = new CartItem(fullProd1,1);
 		res2.add(item2);
 		
-		when(client.findById(1L)).thenReturn(prodFoundResp(fullProd1));
+		stubProductFindById(1L, prodFoundResp(fullProd1));
+		
+		stubProductHasEnoughStockTrue(2, 1L);
 		service.addProdToCart(1L, 2);
 		
+		stubProductGet(1L, prodFoundRespGet(fullProd1));
 		assertEquals(res1, service.getCart());
 		
 		service.removeProdFromCart(1L, 1);
@@ -570,7 +560,11 @@ class EcommerceServiceTest {
 		CartItem item1 = new CartItem(fullProd1,2);
 		res.add(item1);
 		
-		when(client.findById(1L)).thenReturn(prodFoundResp(fullProd1));
+		stubProductGet(1L, prodFoundRespGet(fullProd1));
+		
+		stubProductFindById(1L, prodFoundResp(fullProd1));
+		
+		stubProductHasEnoughStockTrue(2, 1L);
 		service.addProdToCart(1L, 2);
 		
 		assertEquals(res,service.purchaseCart());
@@ -582,9 +576,12 @@ class EcommerceServiceTest {
 		CartItem item1 = new CartItem(fullProd1,1);
 		res.add(item1);
 		
-		when(client.findById(1L)).thenReturn(prodFoundResp(fullProd1));
+		stubProductFindById(1L, prodFoundResp(fullProd1));
+		
+		stubProductHasEnoughStockTrue(1, 1L);
 		service.addProdToCart(1L, 1);
 		
+		stubProductGet(1L, prodFoundRespGet(fullProd1));
 		assertEquals(res, service.getCart());
 		
 		service.clearCart();

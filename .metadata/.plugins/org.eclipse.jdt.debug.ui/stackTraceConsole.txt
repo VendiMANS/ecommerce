@@ -1,10 +1,10 @@
-org.opentest4j.AssertionFailedError: expected: <<200 OK OK,[Sale [id=1, productName=Product A, date=Mon May 10 15:37:40 ART 2021, amount=1], Sale [id=2, productName=Product B, date=Mon May 10 15:37:40 ART 2021, amount=1]],[]>> but was: <<400 BAD_REQUEST Bad Request,This list is empty,[]>>
+org.opentest4j.AssertionFailedError: expected: <<400 BAD_REQUEST Bad Request,There's no product with such id.,[]>> but was: <<400 BAD_REQUEST Bad Request,Not enough stock or invalid id.,[]>>
 	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
 	at org.junit.jupiter.api.AssertionUtils.failNotEqual(AssertionUtils.java:62)
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1124)
-	at com.springboot.app.ecommerce.controller.EcommerceControllerTest.testFindAllByMonthOk(EcommerceControllerTest.java:466)
+	at com.springboot.app.products.controller.ProductControllerTest.testSellStockNull(ProductControllerTest.java:359)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

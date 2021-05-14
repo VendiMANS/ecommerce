@@ -12,8 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
-import com.springboot.app.ecommerce.client.IFeignClient;
 import com.springboot.app.ecommerce.model.CartItem;
 import com.springboot.app.ecommerce.model.Product;
 import com.springboot.app.ecommerce.model.Sale;
@@ -26,171 +26,9 @@ public class EcommerceService implements IEcommerceService {
 	private ISaleRepository repository;
 	
 	@Autowired
-	private IFeignClient client;
+	private RestTemplate restClient;
 	
 	private Map<Long, Integer> cart = new HashMap<>();
-	
-	
-	
-	
-	
-	@Override
-	@Transactional
-	public Product productSave(Product product) {
-		ResponseEntity<Object> response = client.save(product);
-		if(response.getStatusCode() != HttpStatus.CREATED) {
-			return null;
-		}
-		return (Product) response.getBody();
-	}
-	
-	@Override
-	@Transactional
-	public List<Product> productSaveAll(List<Product> products) {
-		ResponseEntity<Object> response = client.saveAll(products);
-		if(response.getStatusCode() != HttpStatus.CREATED) {
-			return null;
-		}
-		return (List<Product>) response.getBody();
-	}
-	
-	@Override
-	@Transactional
-	public Product productEditPrice(Double price, Long id){
-		ResponseEntity<Object> response = client.editPrice(price, id);
-		if(response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			return null;
-		}
-		return (Product) response.getBody();
-	}
-	
-	@Override
-	@Transactional
-	public List<Product> productEditPriceMap(Map<Long, Double> products){
-		ResponseEntity<Object> response = client.editPriceMap(products);
-		if(response.getStatusCode() != HttpStatus.CREATED) {
-			return null;
-		}
-		return (List<Product>) response.getBody();
-	}
-	
-	@Override
-	@Transactional
-	public Product productPutOnSale(Long id){
-		ResponseEntity<Object> response = client.putOnSale(id);
-		if(response.getStatusCode() != HttpStatus.CREATED) {
-			return null;
-		}
-		return (Product) response.getBody();
-	}
-	
-	@Override
-	@Transactional
-	public List<Product> productPutOnSaleList(List<Long> ids){
-		ResponseEntity<Object> response = client.putOnSaleList(ids);
-		if(response.getStatusCode() != HttpStatus.CREATED) {
-			return null;
-		}
-		return (List<Product>) response.getBody();
-	}
-	
-	@Override
-	@Transactional
-	public Product productRemoveOnSale(Long id){
-		ResponseEntity<Object> response = client.removeOnSale(id);
-		if(response.getStatusCode() != HttpStatus.CREATED) {
-			return null;
-		}
-		return (Product) response.getBody();
-	}
-	
-	@Override
-	@Transactional
-	public List<Product> productRemoveOnSaleList(List<Long> ids){
-		ResponseEntity<Object> response = client.removeOnSaleList(ids);
-		if(response.getStatusCode() != HttpStatus.CREATED) {
-			return null;
-		}
-		return (List<Product>) response.getBody();
-	}
-	
-	@Override
-	@Transactional
-	public Product productAddStock(Integer stock, Long id){
-		ResponseEntity<Object> response = client.addStock(stock, id);
-		if(response.getStatusCode() != HttpStatus.CREATED) {
-			return null;
-		}
-		return (Product) response.getBody();
-	}
-	/*
-	@Override
-	@Transactional
-	public List<Product> productAddStockMap(Map<Long, Integer> idAndStocks) {
-		ResponseEntity<Object> response = client.addStockMap(idAndStocks);
-		if(response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			return null;
-		}
-		return (List<Product>) response.getBody();
-	}
-*/
-	@Override
-	@Transactional(readOnly = true)
-	public Product productFindById(Long id) {
-		ResponseEntity<Object> response = client.findById(id);
-		if(response.getStatusCode() != HttpStatus.OK) {
-			return null;
-		}
-		return (Product) response.getBody();
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public Product productFindByName(String name) {
-		ResponseEntity<Object> response = client.findByName(name);
-		if(response.getStatusCode() != HttpStatus.OK) {
-			return null;
-		}
-		return (Product) response.getBody();
-	}
-	
-	@Override
-	@Transactional(readOnly = true)
-	public List<Product> productFindOffers(){
-		ResponseEntity<Object> response = client.findOffers();
-		if(response.getStatusCode() != HttpStatus.OK) {
-			return null;
-		}
-		return (List<Product>) response.getBody();
-	}
-	
-	@Override
-	@Transactional(readOnly = true)
-	public List<Product> productFindAll() {
-		ResponseEntity<Object> response = client.findAll();
-		if(response.getStatusCode() != HttpStatus.OK) {
-			return null;
-		}
-		return (List<Product>) response.getBody();
-	}
-	
-	@Override
-	@Transactional
-	public void productDeleteById(Long id) {
-		ResponseEntity<Object> productSearch = client.findById(id);
-		if(productSearch.getStatusCode() == HttpStatus.OK) {
-			cart.remove(id);
-			client.deleteById(id);
-		}
-	}
-	
-	@Override
-	@Transactional
-	public void productDeleteAll() {
-		client.deleteAll();
-		cart.clear();
-	}
-	
 	
 	
 	
@@ -239,8 +77,18 @@ public class EcommerceService implements IEcommerceService {
 		
 		Set<Long> ids = cart.keySet();
 		
+		String uri = "http://localhost:8001/getProduct/{id}";
+		
 		for(Long id : ids) {
-			ResponseEntity<Object> productSearch = client.findById(id);
+			
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("id", id.toString());
+			
+			ResponseEntity<Product> productSearch = restClient.getForEntity(
+					uri,
+					Product.class,
+					params);
+			
 			if(productSearch.getStatusCode() == HttpStatus.OK) {
 				
 				Product prod = (Product) productSearch.getBody();
@@ -263,58 +111,96 @@ public class EcommerceService implements IEcommerceService {
 	
 	@Override
 	@Transactional
-	public Product addProdToCart(Long prodId, Integer amount){
+	public void addProdToCart(Long id, Integer amount){
 		if(amount > 0) {
-			ResponseEntity<Object> productSearch = client.findById(prodId);
+			
+			String uri = "http://localhost:8001/find/id/{id}";
+			
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("id", id);
+			
+			ResponseEntity<Object> productSearch = restClient.getForEntity(
+					uri,
+					Object.class,
+					params);
+			
 			if(productSearch.getStatusCode() == HttpStatus.OK) {
 				
-				Product productInDB = (Product) productSearch.getBody();
-				if(productInDB.hasEnoughStockToSell(amount)) {
-					client.sellStock(amount, prodId);
-					if(cart.containsKey(prodId)) {
-						Integer currentAmount = cart.get(prodId);
-						cart.put(prodId, currentAmount + amount);
+				uri = "http://localhost:8001/hasEnoughStockToSell/{id}/{stockToSell}";
+				
+				params.put("stockToSell", amount);
+				
+				ResponseEntity<Boolean> productHasEnoughStock = restClient.getForEntity(
+						uri,
+						Boolean.class,
+						params);
+				
+				if(productHasEnoughStock.getBody()) {
+					
+					uri = "http://localhost:8001/edit/stock/sell/{id}";
+					
+					params.clear();
+				    params.put("id", id);
+				    
+				    restClient.put(
+				    		uri,
+				    		amount,
+				    		params);
+					
+					if(cart.containsKey(id)) {
+						Integer currentAmount = cart.get(id);
+						cart.put(id, currentAmount + amount);
 					} else {
-						cart.put(prodId, amount);
+						cart.put(id, amount);
 					}
-					return productInDB;
+					
 				}
 				
 			} else {
 				
-				cart.remove(prodId);
-				return null;
+				cart.remove(id);
 				
 			}
 		}
-		return null;
 	}
 	
 	@Override
 	@Transactional
-	public Product removeProdFromCart(Long prodId, Integer amount){
+	public void removeProdFromCart(Long id, Integer amount){
 		if(amount > 0) {
-			ResponseEntity<Object> productSearch = client.findById(prodId);
+			
+			String uri = "http://localhost:8001/find/id/{id}";
+			
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("id", id);
+			
+			ResponseEntity<Object> productSearch = restClient.getForEntity(
+					uri,
+					Object.class,
+					params);
+			
 			if(productSearch.getStatusCode() == HttpStatus.OK) {
 				
-				Product productInDB = (Product) productSearch.getBody();
-				client.addStock(amount, prodId);
-				Integer currentAmount = cart.get(prodId);
+				uri = "http://localhost:8001/edit/stock/add/{id}";
+			    
+			    restClient.put(
+			    		uri,
+			    		amount,
+			    		params);
+			    
+				Integer currentAmount = cart.get(id);
 				if(currentAmount - amount <= 0) {
-					cart.remove(prodId);
+					cart.remove(id);
 				} else {
-					cart.put(prodId, currentAmount - amount);
+					cart.put(id, currentAmount - amount);
 				}
-				return productInDB;
 				
 			} else {
 				
-				cart.remove(prodId);
-				return null;
+				cart.remove(id);
 				
 			}
 		}
-		return null;
 	}
 	
 	@Override
@@ -324,9 +210,19 @@ public class EcommerceService implements IEcommerceService {
 		
 		Set<Long> ids = cart.keySet();
 		for(Long id : ids) {
-			ResponseEntity<Object> prodSearch =  client.findById(id);
-			if(prodSearch.getStatusCode() == HttpStatus.OK) {
-				Product prodInDB = (Product) prodSearch.getBody();
+			
+			String uri = "http://localhost:8001/getProduct/{id}";
+			
+			Map<String, String> params = new HashMap<String, String>();
+		    params.put("id", id.toString());
+			
+		    ResponseEntity<Product> response = restClient.getForEntity(
+					uri,
+					Product.class,
+					params);
+			
+			if(response.getStatusCode() == HttpStatus.OK) {
+				Product prodInDB = response.getBody();
 				Integer amount = cart.get(id);
 				
 				Sale newSale = new Sale(prodInDB.getName(), amount);
@@ -352,6 +248,14 @@ public class EcommerceService implements IEcommerceService {
 		}
 	}
 	
+	
+	
+	
+	@Override
+	@Transactional
+	public Boolean cartIsEmpty() {
+		return cart.size() == 0;
+	}
 	
 	
 }

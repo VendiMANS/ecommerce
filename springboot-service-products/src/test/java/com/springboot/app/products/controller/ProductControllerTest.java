@@ -140,20 +140,6 @@ class ProductControllerTest {
 	}
 
 	@Test
-	void testFindByNameNull() {
-		when(service.findByName("Product A")).thenReturn(emptyProdOpt);
-		
-		assertEquals(errorNoProdFoundByNameResp, control.findByName("Product A"));
-	}
-	
-	@Test
-	void testFindByNameOk() {
-		when(service.findByName("Product A")).thenReturn(Optional.of(fullProd1));
-		
-		assertEquals(prodFoundResp(fullProd1), control.findByName("Product A"));
-	}
-
-	@Test
 	void testFindOffersEmpty() {
 		when(service.findOffers()).thenReturn(prodList1);
 		
