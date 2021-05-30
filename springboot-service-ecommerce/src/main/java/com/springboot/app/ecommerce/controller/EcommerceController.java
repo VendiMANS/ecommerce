@@ -294,6 +294,8 @@ public class EcommerceController {
 	@GetMapping("/api/cart/list")
 	public ResponseEntity<Object> getCart(){
 		List<CartItem> cart = service.getCart();
+		
+		
 		if(cart == null || cart.isEmpty()) {
 			return new ResponseEntity<>("No products found. The cart may have been cleared or the products may no longer exist in the DB.", HttpStatus.BAD_REQUEST);
 		}
@@ -331,8 +333,12 @@ public class EcommerceController {
 				ResponseEntity<Object> found = productFindById(id);
 				
 				if(found.getStatusCode() == HttpStatus.OK) {
-					service.removeProdFromCart(id, amount);
-					return new ResponseEntity<>("Removed " + amount + " unit(s) of the product.", HttpStatus.CREATED);
+					
+					if(service.prodIsInCart(id)) {
+						service.removeProdFromCart(id, amount);
+						return new ResponseEntity<>("Removed " + amount + " unit(s) of the product.", HttpStatus.CREATED);
+					}
+					return new ResponseEntity<>("Error, that product is not in the cart.", HttpStatus.BAD_REQUEST); 
 				} else {
 					return new ResponseEntity<>("Error: product not found", HttpStatus.BAD_REQUEST);
 				} 
@@ -410,5 +416,24 @@ public class EcommerceController {
 			return new ResponseEntity<>("Sale of id " + id + " has been deleted.", HttpStatus.OK);
 		}
 		return new ResponseEntity<>("There's no sale with such id.", HttpStatus.BAD_REQUEST);
+	}
+	
+	
+	
+	
+	
+	@GetMapping("/api/cart/prodIsInCart/{id}")
+	public ResponseEntity<Boolean> prodIsInCart(@PathVariable Long id){
+		return new ResponseEntity<>(service.prodIsInCart(id), HttpStatus.OK);
+	}
+	
+	@PutMapping("/api/cart/removeIfnoAmountInCart/{id}")
+	public ResponseEntity<Boolean> removeIfnoAmountInCart(@PathVariable Long id){
+		Boolean res = service.cart.get(id) == 0;
+		if(res) {
+			service.cart.remove(id);
+			return new ResponseEntity<>(true, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(false, HttpStatus.OK);
 	}
 }

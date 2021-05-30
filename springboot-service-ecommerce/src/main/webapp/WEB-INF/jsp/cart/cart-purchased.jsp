@@ -3,12 +3,14 @@
 
 <html>
 	<head>
-		<title>All Cart Items</title>
+		<title>Thank you</title>
 	</head>
 	<body>
 		
-		<h1>All Cart Items</h1>
-
+		<h1>Thank you for your purchase!</h1>
+		
+		<h2>You purchased:</h2>
+		
 		<table cellspacing="4" cellpadding="3" border="1">
             <thead>
                 <tr>
@@ -35,5 +37,6 @@
                 </c:forEach>
             </tbody>
         </table>
+		
 	</body>
 </html>

@@ -26,7 +26,8 @@
 				Nombre: <input type="text" name="name">
 				Precio: <input type="text" name="price">
 				Stock inicial: <input type="text" name="stock">
-				En oferta? <input type="text" name="onSale">
+				En oferta? <input type="radio" name="onSale" value="true" checked> True
+						   <input type="radio" name="onSale" value="false"> False
 				<input type="submit" value="Crear">
 			</fieldset>
 		</form>
@@ -81,6 +82,8 @@
 		<form action="resetIdCounter" method="GET">
             <input type="submit" value="Reiniciar contador id">
         </form>
+		
+		<a href="http://localhost:8090/api/view/cart/index">Carrito</a>
 	
 	
 	

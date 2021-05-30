@@ -17,6 +17,8 @@
                     <th align="center">Price</th>
 					<th align="center">Stock</th>
 					<th align="center">Is on Sale?</th>
+					<th align="center">Add to cart</th>
+					<th align="center">Remove from cart</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +29,26 @@
 						<td>$${prod.price}</td>
                         <td>${prod.stock}</td>
 						<td>${prod.onSale}</td>
+						
+						<td>
+							<form action="cart/add" method="POST">
+								<input type="hidden" name="id" value="${prod.id}">
+								<input type="hidden" name="name" value="${prod.name}">
+								<input type="text" name="amount">
+								<input type="submit" value="Agregar al carrito">
+							</form>
+						</td>
+						
+						<td>
+							<form action="cart/remove" method="POST">
+								<input type="hidden" name="id" value="${prod.id}">
+								<input type="hidden" name="name" value="${prod.name}">
+								<input type="text" name="amount">
+								<input type="submit" value="Sacar del carrito">
+							</form>
+						</td>
+						
+						
                     </tr>
                 </c:forEach>
             </tbody>

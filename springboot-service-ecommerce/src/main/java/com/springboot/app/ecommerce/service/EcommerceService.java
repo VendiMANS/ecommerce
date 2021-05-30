@@ -28,7 +28,9 @@ public class EcommerceService implements IEcommerceService {
 	@Autowired
 	private RestTemplate restClient;
 	
-	private Map<Long, Integer> cart = new HashMap<>();
+	
+	
+	public Map<Long, Integer> cart = new HashMap<>();
 	
 	
 	
@@ -189,11 +191,15 @@ public class EcommerceService implements IEcommerceService {
 			    		params);
 			    
 				Integer currentAmount = cart.get(id);
+				/*
 				if(currentAmount - amount <= 0) {
 					cart.remove(id);
 				} else {
 					cart.put(id, currentAmount - amount);
 				}
+				*/
+				
+				cart.put(id, currentAmount - amount);
 				
 			} else {
 				
@@ -242,10 +248,11 @@ public class EcommerceService implements IEcommerceService {
 	@Transactional
 	public void clearCart() {
 		Set<Long> ids = cart.keySet();
-		for(Long id : ids) {
+		for(Long id : ids) {				// TODO OJO CON ESTO!!!!
 			Integer amount = cart.get(id);
-			removeProdFromCart(id, amount);
+			removeProdFromCart(id, amount);	// si remuevo del cart no sabe avanzar al proximo id!!!
 		}
+		cart.clear();
 	}
 	
 	
@@ -255,6 +262,12 @@ public class EcommerceService implements IEcommerceService {
 	@Transactional
 	public Boolean cartIsEmpty() {
 		return cart.size() == 0;
+	}
+	
+	@Override
+	@Transactional
+	public Boolean prodIsInCart(Long id) {
+		return cart.containsKey(id);
 	}
 	
 	

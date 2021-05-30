@@ -1,15 +1,20 @@
 package com.springboot.app.ecommerce.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.springboot.app.ecommerce.model.CartItem;
@@ -96,12 +101,33 @@ public class JspController {
 	
 	@GetMapping("/cart/get")
 	public String viewCart(Model model) {
-		List<CartItem> cart = service.getCart();
-		if(cart != null) {
-			model.addAttribute("cart", cart);
+		List<CartItem> items = service.getCart();
+		if(items != null) {
+			model.addAttribute("items", items);
 			return "cart/get";
 		}
-		return "cart/empty-cart-error"; //TODO el resto del carrito, primero vistas prod!!
+		return "cart/empty-cart-error";
+	}
+	
+	@PostMapping("/cart/purchase")
+	public String cartPurchase(Model model) {
+	    
+	    if(!service.cartIsEmpty()) {
+	    	List<CartItem> items = service.purchaseCart();
+	    	model.addAttribute("items", items);
+	    	return "cart/cart-purchased";
+	    }
+	    return "cart/empty-cart-error";
+	}
+	
+	@PostMapping("/cart/clear")
+	public String cartClear() {
+	    
+	    if(!service.cartIsEmpty()) {
+	    	service.clearCart();
+	    	return "cart/cart-cleared";
+	    }
+	    return "cart/empty-cart-error";
 	}
 	
 	

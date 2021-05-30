@@ -1,15 +1,20 @@
 package com.springboot.app.products.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.RestTemplate;
 
 import com.springboot.app.products.model.Product;
 import com.springboot.app.products.service.ProductService;
@@ -18,6 +23,9 @@ import com.springboot.app.products.service.ProductService;
 @RequestMapping("/api/view/product")
 public class JspController {
 
+	@Autowired
+	private RestTemplate restClient;
+	
 	@Autowired
 	private ProductService service;
 	
@@ -30,7 +38,7 @@ public class JspController {
 	
 	
 	@GetMapping("/index")
-	public String saleIndex() {
+	public String prodIndex() {
 		return "prod-index";
 	}
 	
@@ -160,4 +168,111 @@ public class JspController {
 		}
 		return "reset-id-counter-error";
 	}
+	
+	
+	
+	
+	@PostMapping("/cart/add")
+	public String cartAdd(@ModelAttribute("id") Long id,
+						@ModelAttribute("name") String name,
+						@ModelAttribute("amount") Integer amount, Model model) {
+		
+		//consumo el metodo PUT addProdToCartPOST(Long, Integer) del controlador de ecommerce
+		
+		String uri = "http://localhost:8090/api/cart/add/{id}"; 
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+	    params.put("id", id);
+	    
+		
+	    
+		if(amount > 0) {
+			Product prod = service.findById(id).get();
+			
+			model.addAttribute("name", name);
+			model.addAttribute("amount", amount);
+			if(prod.hasEnoughStockToSell(amount)) {
+				
+
+			    restClient.put(
+			    		uri,
+			    		amount,
+			    		params);
+				
+				
+				return "cart-add";
+			} else {
+				return "not-enough-stock";
+			}
+		}
+		return "invalid-amount";
+	}
+	
+	@PostMapping("/cart/remove")
+	public String cartRemove(@ModelAttribute("id") Long id,
+						@ModelAttribute("name") String name,
+						@ModelAttribute("amount") Integer amount, Model model) {
+		
+		//consumo el metodo PUT removeProdToCartPOST(Long, Integer) del controlador de ecommerce
+		
+		String uriPUT = "http://localhost:8090/api/cart/remove/{id}"; 
+		
+		Map<String, Object> paramsPUT = new HashMap<String, Object>();
+	    paramsPUT.put("id", id);
+	    
+		
+	    
+	    //consumo el GET para ver si esta vacio el carrito
+	    String uriGETcart = "http://localhost:8090/api/cart/list";
+		
+	    ResponseEntity<Object> responseCart = restClient.getForEntity(
+				uriGETcart,
+				Object.class);
+	    
+	    
+	    if(responseCart.getStatusCode() != HttpStatus.BAD_REQUEST) {
+	    	
+	    	
+	    	if(amount > 0) {
+				
+				
+	    		//////////////////////////////////
+				//consumo el GET para ver si el prod esta en el carrito
+				String uriGETprodInCart = "http://localhost:8090/api/cart/prodIsInCart/{id}";
+				
+				Map<String, Object> paramsGET = new HashMap<String, Object>();
+			    paramsGET.put("id", id);
+				
+			    ResponseEntity<Boolean> responseProd = restClient.getForEntity(
+						uriGETprodInCart,
+						Boolean.class,
+						paramsGET);
+			    //////////////////////////////////
+				
+			    model.addAttribute("name", name);
+				model.addAttribute("amount", amount);
+				if(responseProd.getBody()) {
+					
+
+				    restClient.put(
+				    		uriPUT,
+				    		amount,
+				    		paramsPUT);
+				    
+					return "cart-remove";
+				} else {
+					return "prod-not-in-cart";
+				}
+			}
+			return "invalid-amount";
+			
+			
+	    }
+	    return "empty-cart-error";
+	}
+	
+	
+	
+	
+	
 }

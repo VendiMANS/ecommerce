@@ -31,4 +31,6 @@ public interface IEcommerceService {
 	public void clearCart();
 	
 	public Boolean cartIsEmpty();
+	
+	public Boolean prodIsInCart(Long id);
 }
