@@ -36,4 +36,5 @@ public interface IProductService {
     public void deleteById(Long id);
     public void deleteAll();
     
+    public void resetIdCounter();
 }

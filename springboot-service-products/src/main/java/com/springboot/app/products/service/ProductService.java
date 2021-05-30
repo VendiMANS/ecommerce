@@ -296,4 +296,10 @@ public class ProductService implements IProductService {
 		repository.deleteAll();
 	}
 	
+	
+	
+	
+	public void resetIdCounter() {
+		repository.resetIdCounter();
+	}
 }

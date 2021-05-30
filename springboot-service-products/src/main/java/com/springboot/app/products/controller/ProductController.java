@@ -62,6 +62,8 @@ public class ProductController {
 		return new ResponseEntity<>("This list is empty", HttpStatus.BAD_REQUEST);
 	}
 	
+	
+	
 	@GetMapping("/hasEnoughStockToSell/{id}/{stockToSell}")
 	public ResponseEntity<Boolean> hasEnoughStockToSell(@PathVariable Integer stockToSell, @PathVariable Long id) {
 		Optional<Product> productSearch = service.findById(id);

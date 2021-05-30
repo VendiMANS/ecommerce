@@ -404,8 +404,8 @@ public class EcommerceController {
 	
 	@DeleteMapping("/api/sale/delete/{id}")
 	public ResponseEntity<Object> deleteById(@PathVariable Long id) {
-		Optional<Sale> saletSearch = service.findById(id);
-		if(saletSearch.isPresent()) {
+		Optional<Sale> saleSearch = service.findById(id);
+		if(saleSearch.isPresent()) {
 			service.deleteById(id);
 			return new ResponseEntity<>("Sale of id " + id + " has been deleted.", HttpStatus.OK);
 		}
