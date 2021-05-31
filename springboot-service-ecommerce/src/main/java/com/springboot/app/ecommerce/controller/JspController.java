@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.RestTemplate;
 
 import com.springboot.app.ecommerce.model.CartItem;
 import com.springboot.app.ecommerce.model.Sale;
+import com.springboot.app.ecommerce.model.Usuario;
 import com.springboot.app.ecommerce.service.EcommerceService;
 
 @Controller
@@ -32,62 +34,139 @@ public class JspController {
 		this.service = service;
 	}
 	
+	@Autowired
+	private RestTemplate restClient;
 	
+	
+	
+	private Usuario usuarioActual() {
+		String uri = "http://localhost:8002/user";
+	    ResponseEntity<Usuario> response = restClient.getForEntity(
+				uri,
+				Usuario.class);
+	    return response.getBody();
+	}
 	
 	
 	
 	@GetMapping("/sale/index")
 	public String saleIndex() {
-		return "sales/sales-index";
+		
+		Usuario usuarioActual = usuarioActual();
+		if(usuarioActual != null) {
+	    	if(usuarioActual.getPermiso().equals("admin")) {
+	    		return "sales/sales-index";
+	    	}
+	    	return "forbidden-error";
+	    }
+	    
+	    return "loged-out-error";
+		
 	}
 	
 	@GetMapping("/sale/allSales")
 	public String viewSales(Model model) {
-		List<Sale> sales = service.findAll();
-		if(sales.size() > 0) {
-			model.addAttribute("sales", sales);
-			return "sales/sale-list";
-		}
-		return "sales/no-sales-error";
+		
+		Usuario usuarioActual = usuarioActual();
+		if(usuarioActual != null) {
+	    	if(usuarioActual.getPermiso().equals("admin")) {
+
+	    		List<Sale> sales = service.findAll();
+	    		if(sales.size() > 0) {
+	    			model.addAttribute("sales", sales);
+	    			return "sales/sale-list";
+	    		}
+	    		return "sales/no-sales-error";
+	    		
+	    	}
+	    	return "forbidden-error";
+	    }
+		return "loged-out-error";
+		
 	}
 	
 	@GetMapping("/sale/allSalesByMonth")
 	public String viewSalesByMonth(@ModelAttribute("month") Integer month, Model model) {
-		List<Sale> sales = service.findAllByMonth(month);
-		if(sales.size() > 0) {
-			model.addAttribute("sales", sales);
-			return "sales/sale-list";
-		}
-		model.addAttribute("month", month);
-		return "sales/no-sales-in-month-error";
+		
+		Usuario usuarioActual = usuarioActual();
+		if(usuarioActual != null) {
+	    	if(usuarioActual.getPermiso().equals("admin")) {
+
+	    		List<Sale> sales = service.findAllByMonth(month);
+	    		if(sales.size() > 0) {
+	    			model.addAttribute("sales", sales);
+	    			return "sales/sale-list";
+	    		}
+	    		model.addAttribute("month", month);
+	    		return "sales/no-sales-in-month-error";
+	    		
+	    	}
+	    	return "forbidden-error";
+	    }
+		return "loged-out-error";
 	}
 	
 	@GetMapping("/sale/saleById")
 	public String viewSaleById(@ModelAttribute("id") Long id, Model model) {
-		Optional<Sale> search = service.findById(id);
-		if(search.isPresent()) {
-			Sale sale = search.get();
-			model.addAttribute("sale", sale);
-			return "sales/sale-by-id";
-		}
-		return "sales/sale-by-id-error";
+		
+		Usuario usuarioActual = usuarioActual();
+		if(usuarioActual != null) {
+	    	if(usuarioActual.getPermiso().equals("admin")) {
+	    		
+	    		Optional<Sale> search = service.findById(id);
+	    		if(search.isPresent()) {
+	    			Sale sale = search.get();
+	    			model.addAttribute("sale", sale);
+	    			return "sales/sale-by-id";
+	    		}
+	    		return "sales/sale-by-id-error";
+	    		
+	    	}
+	    	return "forbidden-error";
+	    }
+		return "loged-out-error";
+		
 	}
 	
 	@GetMapping("/sale/deleteById")
 	public String deleteSaleById(@ModelAttribute("id") Long id, Model model) {
-		Optional<Sale> search = service.findById(id);
-		if(search.isPresent()) {
-			model.addAttribute("id", id);
-			service.deleteById(id);
-			return "sales/delete-by-id";
-		}
-		return "sales/sale-by-id-error";
+		
+		Usuario usuarioActual = usuarioActual();
+		if(usuarioActual != null) {
+	    	if(usuarioActual.getPermiso().equals("admin")) {
+	    		
+	    		Optional<Sale> search = service.findById(id);
+	    		if(search.isPresent()) {
+	    			model.addAttribute("id", id);
+	    			service.deleteById(id);
+	    			return "sales/delete-by-id";
+	    		}
+	    		return "sales/sale-by-id-error";
+	    		
+	    	}
+	    	return "forbidden-error";
+	    }
+		return "loged-out-error";
+		
+		
 	}
 	
 	@GetMapping("/sale/deleteAll")
 	public String deleteAllSales() {
-		service.deleteAll();
-		return "sales/delete-all-sales";
+
+		Usuario usuarioActual = usuarioActual();
+		if(usuarioActual != null) {
+	    	if(usuarioActual.getPermiso().equals("admin")) {
+	    		
+	    		service.deleteAll();
+	    		return "sales/delete-all-sales";
+	    		
+	    	}
+	    	return "forbidden-error";
+	    }
+		return "loged-out-error";
+		
+		
 	}
 	
 	
@@ -96,38 +175,68 @@ public class JspController {
 	
 	@GetMapping("/cart/index")
 	public String cartIndex() {
-		return "cart/cart-index";
+		
+		Usuario usuarioActual = usuarioActual();
+		if(usuarioActual != null) {
+			
+			return "cart/cart-index";
+			
+	    }
+		return "loged-out-error";
+		
 	}
 	
 	@GetMapping("/cart/get")
 	public String viewCart(Model model) {
-		List<CartItem> items = service.getCart();
-		if(items != null) {
-			model.addAttribute("items", items);
-			return "cart/get";
-		}
-		return "cart/empty-cart-error";
+		
+		Usuario usuarioActual = usuarioActual();
+		if(usuarioActual != null) {
+
+			List<CartItem> items = service.getCart();
+			if(items != null) {
+				model.addAttribute("items", items);
+				return "cart/get";
+			}
+			return "cart/empty-cart-error";
+			
+	    }
+		return "loged-out-error";
+		
 	}
 	
 	@PostMapping("/cart/purchase")
 	public String cartPurchase(Model model) {
-	    
-	    if(!service.cartIsEmpty()) {
-	    	List<CartItem> items = service.purchaseCart();
-	    	model.addAttribute("items", items);
-	    	return "cart/cart-purchased";
+		
+		Usuario usuarioActual = usuarioActual();
+		if(usuarioActual != null) {
+
+			if(!service.cartIsEmpty()) {
+		    	List<CartItem> items = service.purchaseCart();
+		    	model.addAttribute("items", items);
+		    	return "cart/cart-purchased";
+		    }
+		    return "cart/empty-cart-error";
+			
 	    }
-	    return "cart/empty-cart-error";
+		return "loged-out-error";
+		
 	}
 	
 	@PostMapping("/cart/clear")
 	public String cartClear() {
-	    
-	    if(!service.cartIsEmpty()) {
-	    	service.clearCart();
-	    	return "cart/cart-cleared";
+		
+		Usuario usuarioActual = usuarioActual();
+		if(usuarioActual != null) {
+
+			if(!service.cartIsEmpty()) {
+		    	service.clearCart();
+		    	return "cart/cart-cleared";
+		    }
+		    return "cart/empty-cart-error";
+			
 	    }
-	    return "cart/empty-cart-error";
+		return "loged-out-error";
+		
 	}
 	
 	

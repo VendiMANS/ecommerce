@@ -23,10 +23,10 @@ public class UserController {
 	@GetMapping("/user")
 	public ResponseEntity<Usuario> user(){
 		Usuario user = service.getUsuarioActual();
-		if(user != null) {
+		/*if(user != null) {
 			return new ResponseEntity<Usuario>(user, HttpStatus.OK);
-		}
-		return new ResponseEntity<Usuario>(user, HttpStatus.BAD_REQUEST);
+		}*/
+		return new ResponseEntity<Usuario>(user, HttpStatus.OK); // podria ser BAD_REQUEST
 	}
 	
 	@PutMapping("/login")
