@@ -1,5 +1,8 @@
 package com.springboot.app.ecommerce.model;
 
+import com.springboot.app.ecommerce.model.CartItem;
+import com.springboot.app.ecommerce.model.Product;
+
 public class CartItem {
 
 	private Product product;

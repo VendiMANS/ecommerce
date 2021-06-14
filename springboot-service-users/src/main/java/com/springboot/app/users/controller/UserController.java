@@ -2,6 +2,7 @@ package com.springboot.app.users.controller;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.springboot.app.users.dto.UsuarioDTO;
+import com.springboot.app.users.model.Cart;
+import com.springboot.app.users.model.CartItem;
+import com.springboot.app.users.model.PermisosUsuario;
 import com.springboot.app.users.model.Usuario;
 import com.springboot.app.users.service.UserService;
 
@@ -21,12 +25,18 @@ public class UserController {
     
 	
 	@GetMapping("/user")
-	public ResponseEntity<Usuario> user(){
-		Usuario user = service.getUsuarioActual();
-		/*if(user != null) {
-			return new ResponseEntity<Usuario>(user, HttpStatus.OK);
-		}*/
-		return new ResponseEntity<Usuario>(user, HttpStatus.OK); // podria ser BAD_REQUEST
+	public Usuario user(){
+		return service.getUsuarioActual();
+	}
+	
+	@GetMapping("/isLoggedIn")
+	public Boolean isLoggedIn() {
+		return service.isLoggedIn();
+	}
+	
+	@GetMapping("/esAdmin")
+	public Boolean esAdmin() {
+		return service.esAdmin();
 	}
 	
 	@PutMapping("/login")
@@ -51,18 +61,29 @@ public class UserController {
 	}
 	
 	@PostMapping("/register")
-	public ResponseEntity<Boolean> registerCliente(@RequestBody UsuarioDTO dto){
+	public ResponseEntity<Boolean> register(@RequestBody UsuarioDTO dto){
 		if(!service.isLoggedIn()) {
 			Usuario usuarioInDB = service.findUsuarioByUsername(dto.getUsername());
 			if(usuarioInDB == null) {
 				Usuario usuario;
-				
+				PermisosUsuario permiso;
 				if(service.countUsuarios() == 0L) {
-					usuario = new Usuario(dto, "admin");
+					
+					permiso = service.findPermisoByName("admin");
+		    		if(permiso == null) {
+		    			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
+		    		}
+										
 				} else {
-					usuario = new Usuario(dto, "cliente");
+
+					permiso = service.findPermisoByName("cliente");
+		    		if(permiso == null) {
+		    			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
+		    		}
+					
 				}
 				
+				usuario = new Usuario(dto, permiso);
 				service.saveUsuario(usuario);
 				
 				login(dto);
@@ -73,20 +94,6 @@ public class UserController {
 		return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
 	}
 	
-	@PostMapping("/register/admin")
-	public ResponseEntity<Boolean> registerAdmin(@RequestBody UsuarioDTO dto){
-		if(service.esAdmin()) {	
-			Usuario usuarioInDB = service.findUsuarioByUsername(dto.getUsername());
-			if(usuarioInDB == null) {
-				Usuario usuario = new Usuario(dto, "admin");
-				service.saveUsuario(usuario);
-				return new ResponseEntity<Boolean>(true, HttpStatus.CREATED);
-			}
-			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<Boolean>(false, HttpStatus.FORBIDDEN);
-	}
-	
 	@GetMapping("/user/find/all")
 	public ResponseEntity<List<Usuario>> findAllUsuarios(){
 		if(service.esAdmin()) {	
@@ -95,8 +102,71 @@ public class UserController {
 		return new ResponseEntity<List<Usuario>>(Collections.emptyList(), HttpStatus.FORBIDDEN);
 	}
 	
+	@GetMapping("/user/find/{username}")
+	public ResponseEntity<Usuario> findUsuarioByUsername(@PathVariable String username){
+		Usuario user = service.findUsuarioByUsername(username);
+		return new ResponseEntity<Usuario>(user, HttpStatus.OK);
+	}
+	
+	@GetMapping("/user/cart")
+	public Cart getCurrentCart() {
+		return service.getCurrentCart();
+	}
 	
 	
 	
 	
+	
+	@PutMapping("/user/cart/add/item")
+	public void cartAddItem(@RequestBody CartItem item) {
+		service.addItem(item);
+	}
+	
+	@PutMapping("/user/cart/remove/item")
+	public void cartRemoveItem(@RequestBody CartItem item) {
+		service.removeItem(item);
+	}
+	
+	@PutMapping("/user/cart/add/amount/{prodId}")
+	public void cartAddAmount(@PathVariable Long prodId, @RequestBody Integer amount) {
+		service.addAmount(prodId,amount);
+	}
+	
+	@PutMapping("/user/cart/remove/amount/{prodId}")
+	public void cartRemoveAmount(@PathVariable Long prodId, @RequestBody Integer amount) {
+		service.removeAmount(prodId,amount);
+	}
+	
+	
+	
+	@GetMapping("/user/item/{prodId}")
+	public CartItem findCartItemByProdId(@PathVariable Long prodId) {
+		return service.findItemByProdId(prodId);
+	}
+	
+	
+	
+	
+	
+	
+	
+	@GetMapping("/user/cart/isEmpty")
+	public Boolean isEmpty() {
+		return service.cartIsEmpty();
+	}
+	
+	@GetMapping("/user/cart/prodIsInCart/{id}")
+	public Boolean prodIsInCart(@PathVariable Long id) {
+		return service.prodIsInCart(id);
+	}
+	
+	@PostMapping("/user/cart/purchase")
+	public List<CartItem> cartPurchase(){
+		return service.purchaseCart();
+	}
+	
+	@PutMapping("/user/cart/clear")
+	public void cartClear() {
+		service.clearCart();
+	}
 }

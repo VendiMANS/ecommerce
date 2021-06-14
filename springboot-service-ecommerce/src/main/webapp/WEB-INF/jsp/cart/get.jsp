@@ -12,10 +12,8 @@
 		<table cellspacing="4" cellpadding="3" border="1">
             <thead>
                 <tr>
-                    <th align="center">Id</th>
                     <th align="center">Name</th>
                     <th align="center">Price</th>
-					<th align="center">Stock</th>
 					<th align="center">Is on Sale?</th>
 					
 					<th align="center">Amount</th>
@@ -24,10 +22,8 @@
             <tbody>
                 <c:forEach var="item" items="${items}">
                     <tr>
-                        <td>${item.product.id}</td>
                         <td>${item.product.name}</td>
 						<td>$${item.product.price}</td>
-                        <td>${item.product.stock}</td>
 						<td>${item.product.onSale}</td>
 						
 						<td>${item.amount}</td>

@@ -1,5 +1,6 @@
 package com.springboot.app.products.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -27,39 +28,27 @@ public class ProductController {
 	
 
 	@GetMapping("/find/id/{id}")
-	public ResponseEntity<Object> findById(@PathVariable Long id) {
+	public Product findById(@PathVariable Long id) {
 		Optional<Product> productSearch = service.findById(id);
 		if(productSearch.isPresent()) {
-			return new ResponseEntity<>(productSearch.get(), HttpStatus.OK);
+			return productSearch.get();
 		}
-		return new ResponseEntity<>("There's no product with such id.", HttpStatus.BAD_REQUEST);
+		return null;
 	}
 	
 	@GetMapping("/find/offers")
-	public ResponseEntity<Object> findOffers(){
-		List<Product> offers = service.findOffers();
-		if(offers.size() > 0) {
-			return new ResponseEntity<>(offers, HttpStatus.OK);
-		}
-		return new ResponseEntity<>("This list is empty", HttpStatus.BAD_REQUEST);
+	public List<Product> findOffers(){
+		return service.findOffers();
 	}
 	
 	@GetMapping("/find/list")
-	public ResponseEntity<Object> findList(@RequestBody List<Long> ids) {
-		List<Product> prodList = service.findList(ids);
-		if(prodList.size() > 0) {
-			return new ResponseEntity<>(prodList, HttpStatus.OK);
-		}
-		return new ResponseEntity<>("This list is empty", HttpStatus.BAD_REQUEST);
+	public List<Product> findList(@RequestBody List<Long> ids) {
+		return service.findList(ids);
 	}
 	
 	@GetMapping("/find/all")
-	public ResponseEntity<Object> findAll() {
-		List<Product> allProds = service.findAll();
-		if(allProds.size() > 0) {
-			return new ResponseEntity<>(allProds, HttpStatus.OK);
-		}
-		return new ResponseEntity<>("This list is empty", HttpStatus.BAD_REQUEST);
+	public List<Product> findAll() {
+		return service.findAll();
 	}
 	
 	
@@ -89,12 +78,8 @@ public class ProductController {
 	
 	
 	@PostMapping("/save")
-	public ResponseEntity<Object> save(@RequestBody Product product) {
-		Optional<Product> productSearch = service.findByName(product.getName());
-		if(!productSearch.isPresent()) {
-			return new ResponseEntity<>(service.save(product), HttpStatus.CREATED);
-		}
-		return new ResponseEntity<>("There's already a product with such name.", HttpStatus.BAD_REQUEST);
+	public Product save(@RequestBody Product product) {
+		return service.save(product);
 	}
 	
 	@PostMapping("/save/all")
@@ -120,12 +105,8 @@ public class ProductController {
 	}
 	
 	@PutMapping("/edit/price/{id}")
-	public ResponseEntity<Object> editPrice(@RequestBody Double price, @PathVariable Long id) {
-		Product productInDB = service.editPrice(price,id);
-		if(productInDB != null) {
-			return new ResponseEntity<>(productInDB, HttpStatus.CREATED);
-		}
-		return new ResponseEntity<>("There's no product with such id.", HttpStatus.BAD_REQUEST); 
+	public Product editPrice(@RequestBody Double price, @PathVariable Long id) {
+		return service.editPrice(price,id);
 	}
 	
 	@PutMapping("/edit/price/map")
@@ -138,86 +119,25 @@ public class ProductController {
 	}
 	
 	@PutMapping("/edit/putOnSale/{id}")
-	public ResponseEntity<Object> putOnSale(@PathVariable Long id) {
-		Product productInDB = service.putOnSale(id);
-		if(productInDB != null) {
-			return new ResponseEntity<>(productInDB, HttpStatus.CREATED);
-		}
-		return new ResponseEntity<>("There's no product with such id.", HttpStatus.BAD_REQUEST); 
-	}
-	
-	@PutMapping("/edit/putOnSale/list")
-	public ResponseEntity<Object> putOnSaleList(@RequestBody List<Long> ids) {
-		List<Product> onSaleList = service.putOnSaleList(ids);
-		if(onSaleList.size() > 0) {
-			return new ResponseEntity<>(onSaleList, HttpStatus.CREATED);
-		}
-		return new ResponseEntity<>("There's no product with any of those ids.", HttpStatus.BAD_REQUEST);
+	public Product putOnSale(@PathVariable Long id) {
+		return service.putOnSale(id); 
 	}
 	
 	@PutMapping("/edit/removeOnSale/{id}")
-	public ResponseEntity<Object> removeOnSale(@PathVariable Long id) {
-		Product productInDB = service.removeOnSale(id);
-		if(productInDB != null) {
-			return new ResponseEntity<>(productInDB, HttpStatus.CREATED);
-		}
-		return new ResponseEntity<>("There's no product with such id.", HttpStatus.BAD_REQUEST); 
-	}
-	
-	@PutMapping("/edit/removeOnSale/list")
-	public ResponseEntity<Object> removeOnSaleList(@RequestBody List<Long> ids) {
-		List<Product> notOnSaleList = service.removeOnSaleList(ids);
-		if(notOnSaleList.size() > 0) {
-			return new ResponseEntity<>(notOnSaleList, HttpStatus.CREATED);
-		}
-		return new ResponseEntity<>("There's no product with any of those ids.", HttpStatus.BAD_REQUEST);
+	public Product removeOnSale(@PathVariable Long id) {
+		return service.removeOnSale(id); 
 	}
 	
 	@PutMapping("/edit/stock/add/{id}")
-	public ResponseEntity<Object> addStock(@RequestBody Integer stock, @PathVariable Long id) {
-		Product productInDB = service.addStock(stock,id);
-		if(productInDB != null) {
-			return new ResponseEntity<>(productInDB, HttpStatus.CREATED);
-		}
-		return new ResponseEntity<>("There's no product with such id.", HttpStatus.BAD_REQUEST); 
+	public Product addStock(@RequestBody Integer stock, @PathVariable Long id) {
+		return service.addStock(stock,id); 
 	}
-	/*
-	@PutMapping("/stock/add/map")
-	public ResponseEntity<Object> addStockMap(@RequestBody Map<Long, Integer> idAndStocks) {
-		List<Product> editedProducts = service.addStockMap(idAndStocks);
-		if(editedProducts.size() > 0) {
-			return new ResponseEntity<>(editedProducts, HttpStatus.CREATED);
-		}
-		return new ResponseEntity<>("There's no product with any of those ids.", HttpStatus.BAD_REQUEST); 
-	}
-	*/
+	
 	@PutMapping("/edit/stock/sell/{id}")
-	public ResponseEntity<Object> sellStock(@RequestBody Integer stock, @PathVariable Long id) {
-		Product productInDB = service.sellStock(stock,id);
-		if(productInDB != null) {
-			return new ResponseEntity<>(productInDB, HttpStatus.CREATED);
-		}
-		return new ResponseEntity<>("Not enough stock or invalid id.", HttpStatus.BAD_REQUEST); 
+	public Product sellStock(@RequestBody Integer stock, @PathVariable Long id) {
+		return service.sellStock(stock,id); 
 	}
 	
-	/*@PutMapping("/sell/{id}")
-	public ResponseEntity<Object> sell(@RequestBody Integer stockToSell, @PathVariable Long id) {
-		Sale sale = service.sell(stockToSell, id);
-		if(sale!= null) {
-			return new ResponseEntity<>(sale, HttpStatus.CREATED);
-		}
-		return new ResponseEntity<>("There's no product with such id or not enough stock.", HttpStatus.BAD_REQUEST); 
-	}
-	
-	@PutMapping("/sell/map")
-	public ResponseEntity<Object> sellMap(@RequestBody Map<Long, Integer> idAndStocks) {
-		List<Sale> sales = service.sellMap(idAndStocks);
-		if(sales.size() > 0) {
-			return new ResponseEntity<>(sales, HttpStatus.CREATED);
-		}
-		return new ResponseEntity<>("There's no product with any of those ids or none have enough stock.", HttpStatus.BAD_REQUEST);
-	}*/
-
 	
 	
 	
@@ -237,5 +157,6 @@ public class ProductController {
 		}
 		return new ResponseEntity<>("There's no product with such id.", HttpStatus.BAD_REQUEST);
 	}
+	
 	
 }

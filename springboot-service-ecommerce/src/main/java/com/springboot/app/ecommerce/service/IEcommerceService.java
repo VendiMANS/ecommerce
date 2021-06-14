@@ -21,16 +21,10 @@ public interface IEcommerceService {
 	public List<Sale> findAll();
 	public Optional<Sale> findById(Long id);
 	
+	public Sale save(Sale sale);
+	
 	public void deleteAll();
 	public void deleteById(Long id);
 	
-	public List<CartItem> getCart();
-	public void addProdToCart(Long prodId, Integer amount);
-	public void removeProdFromCart(Long prodId, Integer amount);
-	public List<CartItem> purchaseCart();
-	public void clearCart();
-	
-	public Boolean cartIsEmpty();
-	
-	public Boolean prodIsInCart(Long id);
+
 }

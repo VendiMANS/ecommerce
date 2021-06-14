@@ -22,7 +22,7 @@ import com.springboot.app.products.model.Product;
 import com.springboot.app.products.service.ProductService;
 
 class ProductControllerTest {
-
+/*
 	@Mock
 	private ProductService service;
 	
@@ -355,6 +355,8 @@ class ProductControllerTest {
 		assertEquals(prodSaveListResp(prodList1), control.addStockMap(idAndStocksB));		
 	}
 */
+	
+	/*
 	@Test
 	void testSellStockNull() {
 		when(service.sellStock(1, 1l)).thenReturn(null);
@@ -387,5 +389,5 @@ class ProductControllerTest {
 		ResponseEntity<Object> resp = new ResponseEntity<>("Product of id " + id + " has been deleted.", HttpStatus.OK);
 		assertEquals(resp, control.deleteById(1L));
 	}
-
+*/
 }

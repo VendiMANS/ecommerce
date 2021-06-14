@@ -15,7 +15,7 @@
                     <th align="center">Id</th>
                     <th align="center">Username</th>
                     <th align="center">Password</th>
-					<th align="center">Permiso</th>
+					<th align="center">Permisos</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,7 +24,7 @@
                         <td>${user.id}</td>
                         <td>${user.username}</td>
 						<td>${user.password}</td>
-                        <td>${user.permiso}</td>
+                        <td>${user.permisos}</td>
 						
                     </tr>
                 </c:forEach>

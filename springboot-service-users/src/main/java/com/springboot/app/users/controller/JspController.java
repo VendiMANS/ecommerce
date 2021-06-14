@@ -18,13 +18,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.springboot.app.users.dto.UsuarioDTO;
+import com.springboot.app.users.model.PermisosUsuario;
 import com.springboot.app.users.model.Usuario;
 import com.springboot.app.users.service.UserService;
 
-@Controller
-@RequestMapping("/api/view/users")
+//@Controller
+//@RequestMapping("/api/view/users")
 public class JspController {
-
+/*
 	@Autowired
 	private UserService service;
 	
@@ -38,10 +39,12 @@ public class JspController {
 	
 	@GetMapping("/index")
 	public String saleIndex(Model model) {
+		model.addAttribute("isLoggedIn", service.isLoggedIn());
 		if(!service.isLoggedIn()) {
 			model.addAttribute("username", "Guest");
 		} else {
 			model.addAttribute("username", service.getUsuarioActual().getUsername());
+			model.addAttribute("esAdmin", service.esAdmin());
 		}
 		
 		return "user-index";
@@ -112,13 +115,21 @@ public class JspController {
 		Usuario usuarioInDB = service.findUsuarioByUsername(username);
 		if(usuarioInDB == null) {
 			Usuario usuario;
-			
+			PermisosUsuario permiso;
 			if(service.countUsuarios() == 0L) {
-				usuario = new Usuario(username, password, "admin");
+				permiso = service.findPermisoByName("admin");
+	    		if(permiso == null) {
+	    			model.addAttribute("name", "admin");
+	    			return "permiso-not-found";
+	    		}
 			} else {
-				usuario = new Usuario(username, password, "cliente");
+				permiso = service.findPermisoByName("cliente");
+	    		if(permiso == null) {
+	    			model.addAttribute("name", "cliente");
+	    			return "permiso-not-found";
+	    		}
 			}
-			
+			usuario = new Usuario(username, password, permiso);
 			service.saveUsuario(usuario);
 			
 			service.login(usuario);
@@ -134,5 +145,5 @@ public class JspController {
 	
 	
 	
-	
+*/	
 }

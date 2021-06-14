@@ -16,9 +16,9 @@ INDEX VERSION 1.131+C:\Users\lucas.a.vendittelli\Desktop\enunciado\eclipse\ecomm
 605373604.index
 2537580577.index
 1151480639.index
+3925837935.index
 619819116.index
 2142058547.index
-3925837935.index
 1566352749.index
 3151175845.index
 3369180420.index
@@ -42,11 +42,11 @@ INDEX VERSION 1.131+C:\Users\lucas.a.vendittelli\Desktop\enunciado\eclipse\ecomm
 2190688558.index
 3799017628.index
 1570746939.index
-2977781378.index
 2924392886.index
 2034036249.index
 3551782117.index
 1440004611.index
+2977781378.index
 1168049970.index
 3646562042.index
 1309371323.index

@@ -291,84 +291,7 @@ public class EcommerceController {
 	
 	
 	
-	@GetMapping("/api/cart/list")
-	public ResponseEntity<Object> getCart(){
-		List<CartItem> cart = service.getCart();
-		
-		
-		if(cart == null || cart.isEmpty()) {
-			return new ResponseEntity<>("No products found. The cart may have been cleared or the products may no longer exist in the DB.", HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<>(cart, HttpStatus.OK);
-	}
 	
-	@PutMapping("/api/cart/add/{id}")
-	public ResponseEntity<Object> addProdToCart(@PathVariable Long id, @RequestBody Integer amount){
-		
-		if(amount > 0) {
-			ResponseEntity<Object> found = productFindById(id);
-			
-			if(found.getStatusCode() == HttpStatus.OK) {
-				ResponseEntity<Object> enoughStock = productHasEnoughStockToSell(amount, id);
-				if(enoughStock.getStatusCode() == HttpStatus.OK) {
-					service.addProdToCart(id, amount);
-					return new ResponseEntity<>("Added " + amount + " unit(s) of the product.", HttpStatus.CREATED);
-				} else {
-					return new ResponseEntity<>("Error: not enough stock.", HttpStatus.BAD_REQUEST);
-				}
-			} else {
-				return new ResponseEntity<>("Error: product not found.", HttpStatus.BAD_REQUEST);
-			}
-		} else {
-			return new ResponseEntity<>("Error: invalid amount.", HttpStatus.BAD_REQUEST);
-		}
-	}
-	
-	@PutMapping("/api/cart/remove/{id}")
-	public ResponseEntity<Object> removeProdFromCart(@PathVariable Long id, @RequestBody Integer amount){
-		
-		if(!service.cartIsEmpty()) {
-		
-			if(amount > 0) {
-				ResponseEntity<Object> found = productFindById(id);
-				
-				if(found.getStatusCode() == HttpStatus.OK) {
-					
-					if(service.prodIsInCart(id)) {
-						service.removeProdFromCart(id, amount);
-						return new ResponseEntity<>("Removed " + amount + " unit(s) of the product.", HttpStatus.CREATED);
-					}
-					return new ResponseEntity<>("Error, that product is not in the cart.", HttpStatus.BAD_REQUEST); 
-				} else {
-					return new ResponseEntity<>("Error: product not found", HttpStatus.BAD_REQUEST);
-				} 
-			} else {
-				return new ResponseEntity<>("Error: invalid amount.", HttpStatus.BAD_REQUEST);
-			}
-		
-		} else {
-			return new ResponseEntity<>("Error: empty cart.", HttpStatus.BAD_REQUEST);
-		}
-	}
-	
-	@PutMapping("/api/cart/purchase")
-	public ResponseEntity<Object> purchaseCart(){
-		List<CartItem> cart = service.getCart();
-		if(cart == null || cart.isEmpty()) {
-			return new ResponseEntity<>("No products found. The cart may have been cleared or the products may no longer exist in the DB.", HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<>(service.purchaseCart(), HttpStatus.OK);
-	}
-	
-	@PutMapping("/api/cart/clear")
-	public ResponseEntity<Object> clearCart(){
-		List<CartItem> cart = service.getCart();
-		if(cart == null || cart.isEmpty()) {
-			return new ResponseEntity<>("No products found. The cart may have been cleared or the products may no longer exist in the DB.", HttpStatus.BAD_REQUEST);
-		}
-		service.clearCart();
-		return new ResponseEntity<>("Shopping cart cleared.", HttpStatus.OK);
-	}
 	
 	
 	
@@ -402,6 +325,19 @@ public class EcommerceController {
 		return new ResponseEntity<>("There's no sale with such id.", HttpStatus.BAD_REQUEST);
 	}
 	
+	
+	
+	
+	
+	@PostMapping("/sale/save")
+	public Sale save(@RequestBody Sale sale) {
+		return service.save(sale);
+	}
+	
+	
+	
+	
+	
 	@DeleteMapping("/api/sale/delete/all")
 	public ResponseEntity<Object> deleteAll() {
 		service.deleteAll();
@@ -422,18 +358,6 @@ public class EcommerceController {
 	
 	
 	
-	@GetMapping("/api/cart/prodIsInCart/{id}")
-	public ResponseEntity<Boolean> prodIsInCart(@PathVariable Long id){
-		return new ResponseEntity<>(service.prodIsInCart(id), HttpStatus.OK);
-	}
 	
-	@PutMapping("/api/cart/removeIfnoAmountInCart/{id}")
-	public ResponseEntity<Boolean> removeIfnoAmountInCart(@PathVariable Long id){
-		Boolean res = service.cart.get(id) == 0;
-		if(res) {
-			service.cart.remove(id);
-			return new ResponseEntity<>(true, HttpStatus.OK);
-		}
-		return new ResponseEntity<>(false, HttpStatus.OK);
-	}
+	
 }

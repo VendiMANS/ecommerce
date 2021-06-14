@@ -200,21 +200,6 @@ public class ProductService implements IProductService {
 		}
 		return null;
 	}
-
-	@Override
-	@Transactional
-	public List<Product> addStockMap(Map<Long, Integer> idAndStocks) {
-		List<Product> editedProducts = new ArrayList<>();
-		for(Long id : idAndStocks.keySet()) {
-			Optional<Product> productSearch = repository.findById(id);
-			if(productSearch.isPresent()) {
-				Product productInDB = repository.findById(id).get();
-				productInDB.setStock( productInDB.getStock() + idAndStocks.get(id) );
-				editedProducts.add(productInDB);
-			}
-		}
-		return repository.saveAll(editedProducts);
-	}
 	
 	@Override
 	@Transactional
@@ -229,57 +214,6 @@ public class ProductService implements IProductService {
 		}
 		return null;
 	}
-	
-	@Override
-	@Transactional
-	public List<Product> sellStockMap(Map<Long, Integer> idAndStocks) {
-		List<Product> editedProducts = new ArrayList<>();
-		for(Long id : idAndStocks.keySet()) {
-			Optional<Product> productSearch = repository.findById(id);
-			if(productSearch.isPresent()) {
-				Product productInDB = repository.findById(id).get();
-				Integer stockToSell = idAndStocks.get(id);
-				if(productInDB.hasEnoughStockToSell(stockToSell)) {
-					productInDB.setStock(productInDB.getStock() - stockToSell);
-					editedProducts.add(productInDB);
-				}
-			}
-		}
-		return editedProducts;
-	}
-	
-	/*@Override
-	@Transactional
-	public Sale sell(Integer stockToSell, Long id) {
-		Product productInDB = repository.findById(id).orElse(null);
-		if(productInDB != null && hasEnoughStock(productInDB, stockToSell)) {
-			productInDB.setStock(productInDB.getStock() - stockToSell);
-			repository.save(productInDB);
-			Sale sale = new Sale(productInDB.getName(),stockToSell);
-			return sale;
-		} 
-		return null;
-	}
-
-	@Override
-	@Transactional
-	public List<Sale> sellMap(Map<Long, Integer> idAndStocks) {
-		List<Sale> sales = new ArrayList<>();
-		for(Long id : idAndStocks.keySet()) {
-			Product productInDB = repository.findById(id).orElse(null);
-			if(productInDB != null) {
-				Integer stockToSell = idAndStocks.get(id);
-				if(hasEnoughStock(productInDB, stockToSell)) {
-					productInDB.setStock(productInDB.getStock() - stockToSell);
-					repository.save(productInDB);
-					Sale sale = new Sale(productInDB.getName(), stockToSell);
-					sales.add(sale);
-				}
-			}
-		}
-		return sales;
-	}*/
-	
 	
 	
 	
@@ -299,7 +233,10 @@ public class ProductService implements IProductService {
 	
 	
 	
+	
 	public void resetIdCounter() {
 		repository.resetIdCounter();
 	}
+
+	
 }

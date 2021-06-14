@@ -23,6 +23,7 @@ import com.springboot.app.products.service.ProductService;
 @Controller
 @RequestMapping("/api/view/product")
 public class JspController {
+	/*
 
 	@Autowired
 	private RestTemplate restClient;
@@ -102,7 +103,7 @@ public class JspController {
 
 		Usuario usuarioActual = usuarioActual();
 		if(usuarioActual != null) {
-	    	if(usuarioActual.getPermiso().equals("admin")) {
+	    	if(usuarioActual.tienePermiso("admin")) {
 
 	    		Optional<Product> productSearch = service.findByName(name);
 	    		if(!productSearch.isPresent()) {
@@ -391,6 +392,6 @@ public class JspController {
 	
 	
 	
-	
+*/	
 	
 }

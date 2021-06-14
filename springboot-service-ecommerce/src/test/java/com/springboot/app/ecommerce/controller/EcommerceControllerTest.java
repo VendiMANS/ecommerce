@@ -27,7 +27,7 @@ import org.springframework.web.client.RestTemplate;
 import com.springboot.app.ecommerce.service.EcommerceService;
 
 class EcommerceControllerTest {
-
+/*
 	@Mock
 	private EcommerceService service;
 	
@@ -288,6 +288,8 @@ class EcommerceControllerTest {
 		assertEquals(errorNoProdFoundInContainerResp, control.productEditPriceMap(idAndPricesA));
 	}
 	*/
+	
+	/*
 	@Test
 	void testProductEditPriceMapOk() {
 
@@ -319,6 +321,8 @@ class EcommerceControllerTest {
 		assertEquals(errorNoProdFoundInContainerResp, control.productPutOnSaleList(ids));
 	}
 */	
+	
+	/*
 	@Test
 	void testProductPutOnSaleListOk() {
 		ResponseEntity<Object> resp = control.productPutOnSaleList(ids);
@@ -341,6 +345,9 @@ class EcommerceControllerTest {
 		
 		assertEquals(prodFoundResp(fullProd1), control.productRemoveOnSale(1L));
 	}
+	
+	
+	*/
 /*
 	@Test
 	void testProductRemoveOnSaleListEmpty() {
@@ -349,6 +356,8 @@ class EcommerceControllerTest {
 		assertEquals(errorNoProdFoundInContainerResp, control.productRemoveOnSaleList(ids));
 	}
 	*/
+	
+	/*
 	@Test
 	void testProductRemoveOnSaleListOk() {
 		ResponseEntity<Object> resp = control.productRemoveOnSaleList(ids);
@@ -388,6 +397,9 @@ class EcommerceControllerTest {
 		
 		assertEquals(prodFoundResp(fullProd2), control.productFindById(2L));
 	}
+	
+	*/
+	
 /*
 	@Test
 	void testProductFindByNameNull() {
@@ -403,6 +415,8 @@ class EcommerceControllerTest {
 		assertEquals(prodFoundResp(fullProd2), control.productFindByName("B"));
 	}
 */
+	
+	/*
 	@Test
 	void testProductFindOffersEmpty() {
 		

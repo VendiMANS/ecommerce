@@ -26,6 +26,8 @@ public class Product implements Serializable {
 	
 	
 	
+	
+
 	public Product() {
 		
 	}
